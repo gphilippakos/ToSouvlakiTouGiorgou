@@ -1,0 +1,16 @@
+{
+  "name": "to-souvlaki-tou-giorgou-tools",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local tools for the Souvlaki tou Giorgou site (QR generator, image optimizer, table-tent PDF). Not deployed.",
+  "scripts": {
+    "qr": "node generate-qr.js",
+    "optimize": "node optimize-images.js",
+    "tent": "node make-tent.js"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.4",
+    "sharp": "^0.33.5",
+    "pdf-lib": "^1.17.1"
+  }
+}

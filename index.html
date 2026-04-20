@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlroot">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title data-i18n="meta_title">Souvlaki tou Giorgou — Souvlaki &amp; Travixti · Gythio, Mani</title>
+<meta name="description" data-i18n-attr="content:meta_desc" content="George's Souvlaki in Gythio." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Inter:wght@300;400;500;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ink: #1f1915;
+    --ink-soft: #3a2f28;
+    --paper: #f4ecdd;
+    --paper-deep: #ebdfc6;
+    --cream: #faf5e9;
+    --terracotta: #b8431f;
+    --terracotta-deep: #8a2f12;
+    --ember: #d96a2c;
+    --olive: #586a3a;
+    --olive-deep: #3d4a26;
+    --gold: #c79a3a;
+    --rule: rgba(31, 25, 21, 0.18);
+    --rule-soft: rgba(31, 25, 21, 0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 400;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.55;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* paper grain overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.4;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.15  0 0 0 0 0.12  0 0 0 0 0.10  0 0 0 0.18 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  h1, h2, h3, h4, .serif { font-family: 'Fraunces', Georgia, serif; font-weight: 500; letter-spacing: -0.01em; }
+
+  a { color: inherit; text-decoration: none; }
+
+  .script { font-family: 'Caveat', cursive; font-weight: 600; }
+
+  .container {
+    width: min(1200px, 92vw);
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  
+  /* ======================= LANG SWITCHER ======================= */
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .lang-switcher {
+    position: relative;
+  }
+  .lang-current {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--ink);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    font-family: inherit;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .lang-current:hover { border-color: var(--terracotta); }
+  .lang-current .flag { font-size: 16px; line-height: 1; }
+  .lang-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 180px;
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    box-shadow: 0 15px 40px rgba(31, 25, 21, 0.12);
+    list-style: none;
+    padding: 6px;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
+    z-index: 100;
+  }
+  .lang-menu.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .lang-menu li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Fraunces', serif;
+    transition: background 0.15s;
+  }
+  .lang-menu li:hover { background: var(--paper-deep); }
+  .lang-menu li.active {
+    background: var(--paper-deep);
+    color: var(--terracotta-deep);
+  }
+  .lang-menu li .flag { font-size: 18px; line-height: 1; }
+
+  @media (max-width: 768px) {
+    .nav-cta { display: none; }
+    .lang-current { padding: 7px 12px; }
+  }
+
+  /* ======================= NAV ======================= */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(244, 236, 221, 0.82);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 0.02em;
+  }
+  .brand-mark {
+    width: 38px; height: 38px;
+    display: grid; place-items: center;
+    background: var(--terracotta);
+    color: var(--cream);
+    border-radius: 50%;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 18px;
+    font-style: italic;
+  }
+  .nav-links {
+    display: flex; gap: 34px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .nav-links a { position: relative; padding: 4px 0; transition: color 0.25s; }
+  .nav-links a::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -2px;
+    height: 1px; background: var(--terracotta);
+    transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease;
+  }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-cta {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: background 0.25s;
+  }
+  .nav-cta:hover { background: var(--terracotta); }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+  }
+
+  /* ======================= HERO ======================= */
+  .hero {
+    position: relative;
+    padding: 80px 0 110px;
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--terracotta-deep);
+    font-weight: 500;
+    margin-bottom: 28px;
+  }
+  .hero-eyebrow::before {
+    content: ""; width: 38px; height: 1px; background: var(--terracotta-deep);
+  }
+  .hero h1 {
+    font-size: clamp(46px, 7vw, 92px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 28px;
+  }
+  .hero h1 .accent {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--terracotta-deep);
+  }
+  .hero h1 .swash {
+    font-family: 'Caveat', cursive;
+    font-weight: 600;
+    color: var(--olive-deep);
+    font-size: 0.65em;
+    vertical-align: middle;
+    display: inline-block;
+    transform: translateY(-0.15em) rotate(-4deg);
+    margin: 0 0.1em;
+  }
+  .hero-lede {
+    font-size: 18px;
+    max-width: 46ch;
+    color: var(--ink-soft);
+    margin-bottom: 38px;
+    line-height: 1.6;
+  }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 28px;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+    border-radius: 999px;
+    transition: transform 0.25s, background 0.25s, color 0.25s;
+    cursor: pointer;
+  }
+  .btn-primary { background: var(--terracotta); color: var(--cream); }
+  .btn-primary:hover { background: var(--terracotta-deep); transform: translateY(-2px); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+  }
+  .btn-ghost:hover { background: var(--ink); color: var(--cream); transform: translateY(-2px); }
+  .btn .arrow { transition: transform 0.25s; }
+  .btn:hover .arrow { transform: translateX(4px); }
+
+  /* hero art panel */
+  .hero-art {
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+    margin-left: auto;
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow:
+      0 30px 60px -20px rgba(31, 25, 21, 0.35),
+      0 15px 30px -15px rgba(31, 25, 21, 0.25);
+    transform: rotate(0.5deg);
+    transition: transform 0.6s ease;
+  }
+  .hero-art:hover {
+    transform: rotate(0deg) translateY(-4px);
+  }
+  .hero-art img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* little flourish under hero */
+  .hero-strip {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-top: 70px;
+    padding-top: 30px;
+    border-top: 1px solid var(--rule-soft);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    flex-wrap: wrap;
+  }
+  .hero-strip .dot { color: var(--terracotta); }
+
+  @media (max-width: 900px) {
+    .hero { padding: 50px 0 70px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 50px; }
+    .hero-art { max-width: 460px; margin: 0 auto; }
+  }
+
+  /* ======================= MARQUEE ======================= */
+  .marquee {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 18px 0;
+    overflow: hidden;
+    border-top: 1px solid var(--olive-deep);
+    border-bottom: 1px solid var(--olive-deep);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 60px;
+    animation: scroll 38s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-item {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 22px;
+    letter-spacing: 0.02em;
+    display: flex; align-items: center; gap: 60px;
+  }
+  .marquee-item::after {
+    content: "✦";
+    color: var(--terracotta);
+    font-style: normal;
+  }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ======================= STORY ======================= */
+  .story {
+    padding: 130px 0 120px;
+    position: relative;
+  }
+  .story-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .section-eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--terracotta-deep);
+    font-weight: 500;
+    margin-bottom: 18px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .section-eyebrow::before {
+    content: "";
+    width: 30px; height: 1px;
+    background: var(--terracotta-deep);
+  }
+  .story h2 {
+    font-size: clamp(36px, 4.5vw, 58px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    font-weight: 500;
+    margin-bottom: 24px;
+  }
+  .story h2 em {
+    font-style: italic;
+    color: var(--terracotta-deep);
+  }
+  .story p {
+    font-size: 17px;
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+    line-height: 1.7;
+  }
+  .story p:first-of-type::first-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 68px;
+    font-weight: 600;
+    font-style: italic;
+    float: left;
+    line-height: 0.85;
+    margin: 8px 12px 0 0;
+    color: var(--terracotta);
+  }
+  .story-facts {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 36px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+  .fact .num {
+    font-family: 'Fraunces', serif;
+    font-size: 44px;
+    font-weight: 500;
+    color: var(--olive-deep);
+    line-height: 1;
+    display: block;
+  }
+  .fact .lbl {
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 6px;
+  }
+
+  @media (max-width: 900px) {
+    .story { padding: 80px 0; }
+    .story-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  /* ======================= SIGNATURE (TRAVIXTI) ======================= */
+  .signature {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 120px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .signature::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 85% 20%, rgba(217, 106, 44, 0.25), transparent 50%),
+      radial-gradient(circle at 10% 80%, rgba(88, 106, 58, 0.25), transparent 50%);
+  }
+  .signature .container { position: relative; z-index: 2; }
+  .signature h2 {
+    font-size: clamp(40px, 6vw, 78px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+    margin-bottom: 16px;
+  }
+  .signature h2 em {
+    font-style: italic;
+    color: var(--ember);
+  }
+  .signature .sub {
+    font-family: 'Caveat', cursive;
+    font-size: 28px;
+    color: var(--gold);
+    margin-bottom: 50px;
+    display: inline-block;
+    transform: rotate(-2deg);
+  }
+  .trio {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    margin-top: 60px;
+  }
+  .trio-card {
+    position: relative;
+    padding-top: 28px;
+  }
+  .trio-num {
+    font-family: 'Fraunces', serif;
+    font-size: 84px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--ember);
+    line-height: 0.8;
+    display: block;
+    opacity: 0.9;
+  }
+  .trio-card h3 {
+    font-size: 28px;
+    margin: 18px 0 10px;
+    font-weight: 500;
+  }
+  .trio-card .gr {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 17px;
+    display: block;
+    margin-bottom: 14px;
+  }
+  .trio-card p {
+    color: rgba(250, 245, 233, 0.75);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 900px) {
+    .signature { padding: 80px 0; }
+    .trio { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  /* ======================= MENU ======================= */
+  .menu {
+    padding: 130px 0;
+    background: var(--paper);
+  }
+  .menu-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  .menu-header h2 {
+    font-size: clamp(42px, 5vw, 68px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .menu-header h2 em { font-style: italic; color: var(--terracotta-deep); }
+  .menu-header p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink-soft);
+    max-width: 56ch;
+    margin: 0 auto;
+  }
+  .menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px 80px;
+  }
+  .menu-section h3 {
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+  .menu-section h3 .gr {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--terracotta-deep);
+    font-size: 20px;
+  }
+  .menu-section .sect-note {
+    font-family: 'Caveat', cursive;
+    color: var(--olive-deep);
+    font-size: 18px;
+    margin-bottom: 22px;
+    display: block;
+  }
+  .menu-items { margin-top: 14px; }
+  .menu-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    padding: 12px 0;
+    border-bottom: 1px dotted var(--rule);
+    gap: 16px;
+  }
+  .menu-item:last-child { border-bottom: none; }
+  .menu-item .name {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.25;
+  }
+  .menu-item .name .el {
+    display: block;
+    font-size: 13px;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+
+  .menu-item .name .desc {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    font-weight: 400;
+    color: var(--ink-soft);
+    margin-top: 4px;
+    opacity: 0.85;
+    line-height: 1.45;
+    max-width: 46ch;
+  }
+
+  .menu-item .price {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--terracotta-deep);
+    font-variant-numeric: tabular-nums;
+  }
+  .menu-item .price::before {
+    content: "€";
+    font-size: 13px;
+    margin-right: 2px;
+    opacity: 0.7;
+  }
+
+  .featured {
+    grid-column: 1 / -1;
+    background: var(--cream);
+    padding: 36px 40px;
+    border: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    position: relative;
+  }
+  .featured::before {
+    content: "ΣΗΜΑ ΚΑΤΑΤΕΘΕΝ";
+    position: absolute;
+    top: -11px; left: 30px;
+    background: var(--paper);
+    padding: 0 12px;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    color: var(--terracotta-deep);
+  }
+  .featured h4 {
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .featured h4 em { font-style: italic; color: var(--terracotta-deep); }
+  .featured p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    max-width: 60ch;
+  }
+  .featured .price-block {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .featured .price-block .amt {
+    font-family: 'Fraunces', serif;
+    font-size: 42px;
+    font-weight: 500;
+    color: var(--terracotta-deep);
+    line-height: 1;
+  }
+  .featured .price-block .amt::before { content: "€"; font-size: 22px; vertical-align: top; margin-right: 2px; opacity: 0.75; }
+  .featured .price-block .lbl {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 4px;
+  }
+
+  @media (max-width: 900px) {
+    .menu { padding: 80px 0; }
+    .menu-grid { grid-template-columns: 1fr; gap: 50px; }
+    .featured { flex-direction: column; align-items: flex-start; padding: 28px; }
+    .featured .price-block { text-align: left; }
+  }
+
+  /* ======================= VISIT ======================= */
+  .visit {
+    background: var(--olive-deep);
+    color: var(--cream);
+    padding: 120px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .visit::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(217, 106, 44, 0.18), transparent 45%),
+      radial-gradient(circle at 90% 90%, rgba(199, 154, 58, 0.12), transparent 50%);
+  }
+  .visit .container { position: relative; z-index: 2; }
+  .visit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .visit h2 {
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+    margin-bottom: 22px;
+  }
+  .visit h2 em {
+    font-style: italic;
+    color: var(--ember);
+  }
+  .visit-intro {
+    font-size: 18px;
+    color: rgba(250, 245, 233, 0.82);
+    line-height: 1.65;
+    margin-bottom: 38px;
+    max-width: 42ch;
+  }
+  .info-block {
+    padding: 22px 0;
+    border-top: 1px solid rgba(250, 245, 233, 0.18);
+  }
+  .info-block:last-child { border-bottom: 1px solid rgba(250, 245, 233, 0.18); }
+  .info-block .lbl {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .info-block .val {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    line-height: 1.35;
+  }
+  .info-block .val a:hover { color: var(--ember); }
+  .info-block .sub {
+    font-size: 14px;
+    color: rgba(250, 245, 233, 0.65);
+    margin-top: 4px;
+  }
+
+  .hours-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .hours-table td {
+    padding: 10px 0;
+    font-size: 15px;
+    border-bottom: 1px solid rgba(250, 245, 233, 0.12);
+    font-family: 'Fraunces', serif;
+  }
+  .hours-table td:first-child {
+    color: rgba(250, 245, 233, 0.7);
+    font-style: italic;
+  }
+  .hours-table td:last-child {
+    text-align: right;
+    font-weight: 500;
+  }
+  .hours-table tr:last-child td { border-bottom: none; }
+
+  @media (max-width: 900px) {
+    .visit { padding: 80px 0; }
+    .visit-grid { grid-template-columns: 1fr; gap: 50px; }
+  }
+
+  /* ======================= FOOTER ======================= */
+  footer {
+    background: var(--ink);
+    color: rgba(250, 245, 233, 0.7);
+    padding: 60px 0 40px;
+  }
+  .foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .foot .brand { color: var(--cream); }
+  .foot-note {
+    font-size: 13px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+  }
+  .foot-links {
+    display: flex; gap: 24px;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .foot-links a:hover { color: var(--ember); }
+
+  /* reveal on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- ========= NAV ========= -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mark">Γ</span>
+      <span>Το Σουβλάκι <span style="font-style: italic; color: var(--terracotta-deep); font-weight: 500;">του Γιώργου</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="#story" data-i18n="nav_story">Our Story</a>
+      <a href="#signature" data-i18n="nav_signature">The Tripleta</a>
+      <a href="#menu" data-i18n="nav_menu">Menu</a>
+      <a href="#visit" data-i18n="nav_visit">Visit</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-switcher" role="group" aria-label="Language">
+        <button class="lang-current" aria-haspopup="listbox" aria-expanded="false" id="langBtn">
+          <span class="flag" id="langFlag">🇬🇧</span>
+          <span id="langLabel">EN</span>
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <ul class="lang-menu" role="listbox" id="langMenu">
+          <li role="option" data-lang="en"><span class="flag">🇬🇧</span><span>English</span></li>
+          <li role="option" data-lang="el"><span class="flag">🇬🇷</span><span>Ελληνικά</span></li>
+          <li role="option" data-lang="de"><span class="flag">🇩🇪</span><span>Deutsch</span></li>
+          <li role="option" data-lang="fr"><span class="flag">🇫🇷</span><span>Français</span></li>
+          <li role="option" data-lang="es"><span class="flag">🇪🇸</span><span>Español</span></li>
+          <li role="option" data-lang="it"><span class="flag">🇮🇹</span><span>Italiano</span></li>
+        </ul>
+      </div>
+      <a class="nav-cta" href="#visit" data-i18n="nav_cta">Find Us</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ========= HERO ========= -->
+<section class="hero" id="top">
+  <div class="container hero-grid">
+    <div class="hero-text">
+      <span class="hero-eyebrow" data-i18n="hero_eyebrow">Το Σουβλάκι του Γιώργου · Gythio · Mani</span>
+      <h1 data-i18n-html="hero_title_html">
+        George's grill, <span class="accent">Gythio's</span><br/>
+        tripleta, <span class="swash">&amp;</span><br/>
+        a port that<br/>
+        <span class="accent">once fed Sparta.</span>
+      </h1>
+      <p class="hero-lede" data-i18n="hero_lede">
+        Charcoal skewers, hand-stretched Maniot pita, and the simple trio our grandfathers ate after a day on the Laconian Gulf. No shortcuts — just the grill, the flour, the flame.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#menu"><span data-i18n="hero_btn_menu">See the Menu</span> <span class="arrow">→</span></a>
+        <a class="btn btn-ghost" href="#signature" data-i18n="hero_btn_tripleta">What's a Tripleta?</a>
+      </div>
+    </div>
+
+    <div class="hero-art">
+      <img src="images/hero.jpg" alt="Charcoal-grilled souvlaki skewers with smoke and olive leaves" />
+    </div>
+  </div>
+
+  <div class="container hero-strip">
+    <span><span class="dot">●</span> <span data-i18n="strip_1">Charcoal grill</span></span>
+    <span><span class="dot">●</span> <span data-i18n="strip_2">Hand-stretched pita</span></span>
+    <span><span class="dot">●</span> <span data-i18n="strip_3">Laconian olive oil</span></span>
+    <span><span class="dot">●</span> <span data-i18n="strip_4">Family recipes</span></span>
+  </div>
+</section>
+
+<!-- ========= MARQUEE ========= -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item">Τριπλέτα</span>
+    <span class="marquee-item">Souvlaki</span>
+    <span class="marquee-item">Travixti</span>
+    <span class="marquee-item">Προβατίνα</span>
+    <span class="marquee-item">Χοιρινό</span>
+    <span class="marquee-item">Μοσχάρι γάλακτος</span>
+    <span class="marquee-item">Kebab</span>
+    <span class="marquee-item">Τζατζίκι</span>
+    <!-- duplicate for seamless loop -->
+    <span class="marquee-item">Τριπλέτα</span>
+    <span class="marquee-item">Souvlaki</span>
+    <span class="marquee-item">Travixti</span>
+    <span class="marquee-item">Προβατίνα</span>
+    <span class="marquee-item">Χοιρινό</span>
+    <span class="marquee-item">Μοσχάρι γάλακτος</span>
+    <span class="marquee-item">Kebab</span>
+    <span class="marquee-item">Τζατζίκι</span>
+  </div>
+</div>
+
+<!-- ========= STORY ========= -->
+<section class="story" id="story">
+  <div class="container story-grid">
+    <div class="reveal">
+      <span class="section-eyebrow" data-i18n="story_eyebrow">Our Story</span>
+      <h2 data-i18n-html="story_title_html">A grill by the <em>Laconian Gulf.</em></h2>
+    </div>
+    <div class="reveal">
+      <p data-i18n="story_p1">Gythio was the port of Sparta. Ships left here carrying purple dye, olive oil and warriors; they came back tired and hungry. A thousand years later not much has changed — the boats are smaller, the harbour is prettier, and the hunger is the same. George cooks for that hunger.</p>
+      <p data-i18n="story_p2">Our pita is travixti — pulled by hand, fried in olive oil until it crackles. Our meat is cut in the kitchen, threaded on wooden skewers, and grilled over real charcoal. Our cheese is kaseri, aged and sharp. Put them together and you have the tripleta: the one bite Mani is known for.</p>
+      <p data-i18n="story_p3">We're a few tables on Tzanni Tzannetaki, the street that runs along the harbour. Pull up a chair, order the skewer you want, watch the smoke rise. That's it. That's the whole idea.</p>
+
+      <div class="story-facts">
+        <div class="fact">
+          <span class="num">3</span>
+          <span class="lbl" data-i18n="fact_1_lbl">ingredients in a tripleta</span>
+        </div>
+        <div class="fact">
+          <span class="num">7</span>
+          <span class="lbl" data-i18n="fact_2_lbl">kinds of skewer, one grill</span>
+        </div>
+        <div class="fact">
+          <span class="num">40km</span>
+          <span class="lbl" data-i18n="fact_3_lbl">to ancient Sparta</span>
+        </div>
+        <div class="fact">
+          <span class="num">100%</span>
+          <span class="lbl" data-i18n="fact_4_lbl">charcoal, no gas, no shortcuts</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========= SIGNATURE ========= -->
+<section class="signature" id="signature">
+  <div class="container">
+    <div class="reveal" style="max-width: 780px;">
+      <span class="section-eyebrow" style="color: var(--ember);" data-i18n="sig_eyebrow">Σήμα Κατατεθέν · The Signature</span>
+      <h2 data-i18n-html="sig_title_html">The <em>Tripleta.</em></h2>
+      <span class="sub" data-i18n="sig_sub">three things, one perfect bite</span>
+      <p style="font-size: 18px; color: rgba(250,245,233,0.78); max-width: 58ch; line-height: 1.7;" data-i18n="sig_intro">You won't find it the same way outside Mani. A travixti pita, a slab of matured kaseri, and a fresh-off-the-grill skewer — folded together while everything is still hot. It's the sandwich Gythio gave Greece.</p>
+    </div>
+
+    <div class="trio">
+      <div class="trio-card reveal">
+        <span class="trio-num">01</span>
+        <h3 data-i18n="trio_1_title">The Pita</h3>
+        <span class="gr" data-i18n="trio_1_gr">Μανιάτικη Πίτα Τραβηχτή</span>
+        <p data-i18n="trio_1_desc">Dough pulled thin by hand, slipped into hot oil, and fried until the edges blister. Crisp outside, pillowy inside. Nothing like the flat pita you know from the city.</p>
+      </div>
+      <div class="trio-card reveal">
+        <span class="trio-num">02</span>
+        <h3 data-i18n="trio_2_title">The Cheese</h3>
+        <span class="gr" data-i18n="trio_2_gr">Τυρί Κασέρι</span>
+        <p data-i18n="trio_2_desc">A thick slice of aged kaseri, sharp and a little funky. It melts just enough against the hot pita to bind the whole thing together.</p>
+      </div>
+      <div class="trio-card reveal">
+        <span class="trio-num">03</span>
+        <h3 data-i18n="trio_3_title">The Skewer</h3>
+        <span class="gr" data-i18n="trio_3_gr">Καλαμάκι</span>
+        <p data-i18n="trio_3_desc">Your choice: pork, chicken, kebab, veal, pancetta, sheep, or veal sausage. Cooked over charcoal, never gas, seasoned with nothing more than salt, pepper, and oregano.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========= MENU ========= -->
+<section class="menu" id="menu">
+  <div class="container">
+    <div class="menu-header reveal">
+      <span class="section-eyebrow" style="justify-content: center;" data-i18n="menu_eyebrow">Κατάλογος</span>
+      <h2 data-i18n-html="menu_title_html">The <em>Menu.</em></h2>
+      <p data-i18n="menu_intro">Prices in euro. Everything grilled to order — give us a few minutes, we'll give you something worth the wait.</p>
+    </div>
+
+    <div class="menu-grid">
+
+      <!-- FEATURED: TRIPLETA -->
+      <div class="featured reveal">
+        <div>
+          <h4 data-i18n-html="feat_title_html">The <em>Tripleta</em></h4>
+          <p style="font-family: 'Fraunces', serif; font-style: italic; color: var(--terracotta-deep); margin: 4px 0 8px;" data-i18n="feat_sub">Τριπλέτα · pita + cheese + souvlaki</p>
+          <p data-i18n="feat_desc">Our signature. Maniot travixti pita wrapped around aged kaseri and the skewer of your choice. The taste of Gythio, in one bite.</p>
+        </div>
+        <div class="price-block">
+          <div class="amt">4.80</div>
+          <div class="lbl" data-i18n="feat_label">one for the road</div>
+        </div>
+      </div>
+
+      <!-- WRAPPED PITAS -->
+      <div class="menu-section reveal">
+        <h3><span data-i18n="sec_wrapped">Wrapped</span> <span class="gr">· Πίτες</span></h3>
+        <span class="sect-note" data-i18n="sec_wrapped_note">pita around the skewer, plus the works</span>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_pork">Pork Souvlaki</span><span class="el">Πίτα Καλαμάκι Χοιρινό</span><span class="desc" data-i18n="item_pork_desc">Charcoal-grilled, marinated in lemon and oregano</span></div>
+            <div class="price">3.90</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_chicken">Chicken Souvlaki</span><span class="el">Πίτα Καλαμάκι Κοτόπουλο</span><span class="desc" data-i18n="item_chicken_desc">Charcoal-grilled, simple and tender</span></div>
+            <div class="price">3.90</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_kebab">Kebab</span><span class="el">Πίτα Κεμπάπ</span><span class="desc" data-i18n="item_kebab_desc">Hand-minced beef, spiced and grilled</span></div>
+            <div class="price">3.90</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_pancetta">Pancetta</span><span class="el">Πίτα Πανσετάκι</span><span class="desc" data-i18n="item_pancetta_desc">Pork belly, crisped over the fire</span></div>
+            <div class="price">3.90</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_veal">Milk-fed Veal</span><span class="el">Πίτα Καλαμάκι Μοσχάρι γάλακτος</span><span class="desc" data-i18n="item_veal_desc">Milk-fed, tender, charcoal-grilled</span></div>
+            <div class="price">4.50</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_veal_sausage_dbl">Double Veal Sausage</span><span class="el">Πίτα με διπλό Λουκάνικο Μοσχαρίσιο</span><span class="desc" data-i18n="item_veal_sausage_dbl_desc">Two fresh veal sausages, grilled</span></div>
+            <div class="price">4.50</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_sheep">Sheep Souvlaki</span><span class="el">Πίτα με Προβατίνα καλαμάκι</span><span class="desc" data-i18n="item_sheep_desc">Mature sheep — deep, traditional flavor</span></div>
+            <div class="price">4.50</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKEWERS -->
+      <div class="menu-section reveal">
+        <h3><span data-i18n="sec_skewers">Skewers</span> <span class="gr">· Καλαμάκια</span></h3>
+        <span class="sect-note" data-i18n="sec_skewers_note">just the skewer — the way a kalamaki should be</span>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_pork_s">Pork</span><span class="el">Καλαμάκι Χοιρινό</span><span class="desc" data-i18n="item_pork_s_desc">Charcoal-grilled, marinated in lemon and oregano</span></div>
+            <div class="price">2.30</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_chicken_s">Chicken</span><span class="el">Καλαμάκι Κοτόπουλο</span><span class="desc" data-i18n="item_chicken_s_desc">Charcoal-grilled, simple and tender</span></div>
+            <div class="price">2.30</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_kebab">Kebab</span><span class="el">Κεμπάπ</span><span class="desc" data-i18n="item_kebab_desc">Hand-minced beef, spiced and grilled</span></div>
+            <div class="price">2.30</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_pancetta">Pancetta</span><span class="el">Πανσετάκι</span><span class="desc" data-i18n="item_pancetta_desc">Pork belly, crisped over the fire</span></div>
+            <div class="price">2.30</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_veal_sausage">Veal Sausage</span><span class="el">Λουκάνικο μοσχαρίσιο</span><span class="desc" data-i18n="item_veal_sausage_desc">Fresh, grilled over the fire</span></div>
+            <div class="price">2.30</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_veal_s">Milk-fed Veal</span><span class="el">Μοσχάρι γάλακτος</span><span class="desc" data-i18n="item_veal_s_desc">Milk-fed, tender, charcoal-grilled</span></div>
+            <div class="price">2.90</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_sheep_s">Sheep</span><span class="el">Προβατίνα</span><span class="desc" data-i18n="item_sheep_s_desc">Mature sheep — deep, traditional</span></div>
+            <div class="price">2.90</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PORTIONS -->
+      <div class="menu-section reveal">
+        <h3><span data-i18n="sec_plates">Plates</span> <span class="gr">· Μερίδες</span></h3>
+        <span class="sect-note" data-i18n="sec_plates_note">skewers with fries, pita &amp; the sides</span>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_pork">Pork Souvlaki</span><span class="el">Καλαμάκι Χοιρινό</span><span class="desc" data-i18n="item_pork_desc">Charcoal-grilled, marinated in lemon and oregano</span></div>
+            <div class="price">9.90</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_chicken">Chicken Souvlaki</span><span class="el">Καλαμάκι Κοτόπουλο</span><span class="desc" data-i18n="item_chicken_desc">Charcoal-grilled, simple and tender</span></div>
+            <div class="price">9.90</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_kebab">Kebab</span><span class="el">Κεμπάπ</span><span class="desc" data-i18n="item_kebab_desc">Hand-minced beef, spiced and grilled</span></div>
+            <div class="price">9.90</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_veal_burger">Veal Burger</span><span class="el">Μπιφτέκι</span><span class="desc" data-i18n="item_veal_burger_desc">Grilled veal patty</span></div>
+            <div class="price">9.90</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_veal_sausage">Veal Sausage</span><span class="el">Λουκάνικο μοσχαρίσιο</span><span class="desc" data-i18n="item_veal_sausage_desc">Fresh, grilled over the fire</span></div>
+            <div class="price">9.90</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_pancetta">Pancetta</span><span class="el">Πανσετάκι</span><span class="desc" data-i18n="item_pancetta_desc">Pork belly, crisped over the fire</span></div>
+            <div class="price">9.90</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_veal_s">Milk-fed Veal</span><span class="el">Μοσχάρι γάλακτος</span><span class="desc" data-i18n="item_veal_s_desc">Milk-fed, tender, charcoal-grilled</span></div>
+            <div class="price">11.40</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_sheep">Sheep Souvlaki</span><span class="el">Προβατίνα</span><span class="desc" data-i18n="item_sheep_desc">Mature sheep — deep, traditional flavor</span></div>
+            <div class="price">11.40</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_mix">Mix Grill</span><span class="el" data-i18n="item_mix_sub">a little of everything</span></div>
+            <div class="price">16.90</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SALADS & APPETIZERS -->
+      <div class="menu-section reveal">
+        <h3><span data-i18n="sec_sides">Salads &amp; Sides</span> <span class="gr">· Σαλάτες · Ορεκτικά</span></h3>
+        <span class="sect-note" data-i18n="sec_sides_note">fresh, simple, to share</span>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_greek_salad">Greek Salad</span><span class="el">Χωριάτικη</span><span class="desc" data-i18n="item_greek_salad_desc">Tomato, cucumber, onion, olives, feta, oregano</span></div>
+            <div class="price">8.50</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_plain_salad">Plain Salad</span><span class="el">Σαλάτα απλή</span><span class="desc" data-i18n="item_plain_salad_desc">Lettuce, cucumber, tomato, carrot, olive oil</span></div>
+            <div class="price">5.00</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_feta">Feta Cheese</span><span class="el">Φέτα</span><span class="desc" data-i18n="item_feta_desc">A slab of feta with olive oil and oregano</span></div>
+            <div class="price">5.00</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_spicy_cheese">Spicy Cheese Dip</span><span class="el">Τυροκαυτερή</span><span class="desc" data-i18n="item_spicy_cheese_desc">Whipped feta with roasted peppers</span></div>
+            <div class="price">5.00</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_tzatziki">Tzatziki</span><span class="el">Τζατζίκι</span><span class="desc" data-i18n="item_tzatziki_desc">Yogurt, cucumber, garlic, dill</span></div>
+            <div class="price">4.50</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_fries">Hand-cut Fries</span><span class="el">Πατάτες τηγ. φρέσκιες</span><span class="desc" data-i18n="item_fries_desc">Hand-cut, fried fresh to order</span></div>
+            <div class="price">4.50</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_mani_pita">Mani Pita</span><span class="el">Μανιάτικη Πίτα Τραβηχτή</span><span class="desc" data-i18n="item_mani_pita_desc">Rustic hand-stretched, from Mani</span></div>
+            <div class="price">1.50</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_extra_cheese">Extra Cheese</span><span class="el">Τυρί</span><span class="desc" data-i18n="item_extra_cheese_desc">A slice of grilled Greek cheese</span></div>
+            <div class="price">1.00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DRINKS -->
+      <div class="menu-section reveal" style="grid-column: 1 / -1;">
+        <h3><span data-i18n="sec_drinks">Drinks</span> <span class="gr">· Ποτά</span></h3>
+        <span class="sect-note" data-i18n="sec_drinks_note">cold beer, cold water, and wine by the half-litre from the barrel</span>
+        <div class="menu-items" style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 60px;">
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_soft_drinks">Soft Drinks</span><span class="el">Αναψυκτικά</span></div>
+            <div class="price">2.50</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_beer">Beer 500ml</span><span class="el">Μπύρες</span></div>
+            <div class="price">4.00</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_water_500">Mineral Water 500ml</span><span class="el">Νερό</span></div>
+            <div class="price">0.50</div>
+          </div>
+          <div class="menu-item">
+            <div class="name"><span data-i18n="item_water_1l">Mineral Water 1L</span><span class="el">Νερό</span></div>
+            <div class="price">1.50</div>
+          </div>
+          <div class="menu-item" style="grid-column: 1 / -1;">
+            <div class="name"><span data-i18n="item_barrel_wine">Barrel Wine 500ml</span><span class="el" data-i18n="item_barrel_wine_sub">Κρασί χύμα · house red or white</span></div>
+            <div class="price">4.00</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========= VISIT ========= -->
+<section class="visit" id="visit">
+  <div class="container visit-grid">
+    <div class="reveal">
+      <span class="section-eyebrow" style="color: var(--gold);" data-i18n="visit_eyebrow">Visit Us</span>
+      <h2 data-i18n-html="visit_title_html">Come for the <em>tripleta.</em></h2>
+      <p class="visit-intro" data-i18n="visit_intro">We're on Tzanni Tzannetaki, the street that runs along the harbour — named after the Gythio-born prime minister. Look for the charcoal smoke. That's us.</p>
+      <a class="btn btn-primary" href="https://maps.app.goo.gl/D1ebb5SWtykCB6tC6" target="_blank" rel="noopener" style="background: var(--ember); color: var(--ink);"><span data-i18n="visit_btn">Open in Google Maps</span> <span class="arrow">→</span></a>
+    </div>
+
+    <div class="reveal">
+      <div class="info-block">
+        <div class="lbl" data-i18n="visit_where_lbl">Where</div>
+        <div class="val">Τζαννή Τζαννετάκη<br/>Γύθειο · Gythio 232 00</div>
+        <div class="sub" data-i18n="visit_where_sub">Laconia · Mani · Peloponnese</div>
+      </div>
+
+      <div class="info-block">
+        <div class="lbl" data-i18n="visit_phone_lbl">Phone</div>
+        <div class="val"><a href="tel:+30">+30 · <span data-i18n="visit_phone_val">call the shop</span></a></div>
+        <div class="sub" data-i18n="visit_phone_sub">call ahead for larger groups</div>
+      </div>
+
+      <div class="info-block">
+        <div class="lbl" data-i18n="visit_hours_lbl">Hours</div>
+        <table class="hours-table" style="margin-top: 6px;">
+          <tr><td data-i18n="day_mon_thu">Mon – Thu</td><td>12:00 – 23:00</td></tr>
+          <tr><td data-i18n="day_fri_sat">Fri – Sat</td><td>12:00 – 00:30</td></tr>
+          <tr><td data-i18n="day_sun">Sunday</td><td>12:00 – 23:00</td></tr>
+        </table>
+        <div class="sub" style="margin-top: 8px;" data-i18n="visit_hours_note">hours may shift in winter — it's Greece</div>
+      </div>
+
+      <div class="info-block">
+        <div class="lbl" data-i18n="visit_find_lbl">Find us</div>
+        <div class="val">
+          <a href="https://maps.app.goo.gl/D1ebb5SWtykCB6tC6" target="_blank" rel="noopener">Google Maps</a> &nbsp;·&nbsp;
+          <a href="#">Instagram</a> &nbsp;·&nbsp;
+          <a href="#">Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========= FOOTER ========= -->
+<footer>
+  <div class="container foot">
+    <a class="brand" href="#top">
+      <span class="brand-mark">Γ</span>
+      <span>Το Σουβλάκι του Γιώργου · Gythio</span>
+    </a>
+    <div class="foot-note" data-i18n="foot_tagline">"Eat well, drink quietly, leave full."</div>
+    <div class="foot-links">
+      <a href="#menu" data-i18n="foot_menu">Menu</a>
+      <a href="#visit" data-i18n="foot_visit">Visit</a>
+      <a href="#" data-i18n="foot_privacy">Privacy</a>
+    </div>
+  </div>
+  <div class="container" style="text-align: center; margin-top: 30px; font-size: 12px; opacity: 0.55; letter-spacing: 0.1em;">
+    © <span id="yr"></span> · <span data-i18n="foot_copyright">Made with charcoal and a little oregano</span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* ============================================================
+     i18n — multilingual rendering & language switcher
+     ============================================================ */
+  const TRANSLATIONS = {"en":{"meta_title":"Souvlaki tou Giorgou — Souvlaki & Travixti · Gythio, Mani","meta_desc":"George's Souvlaki in Gythio — traditional Maniot souvlaki and hand-stretched travixti pita on Tzanni Tzannetaki street, along the Laconian Gulf.","nav_story":"Our Story","nav_signature":"The Tripleta","nav_menu":"Menu","nav_visit":"Visit","nav_cta":"Find Us","hero_eyebrow":"Το Σουβλάκι του Γιώργου · Gythio · Mani","hero_title_html":"George&rsquo;s grill, <span class=\"accent\">Gythio&rsquo;s</span><br/>tripleta, <span class=\"swash\">&amp;</span><br/>a port that<br/><span class=\"accent\">once fed Sparta.</span>","hero_lede":"Charcoal skewers, hand-stretched Maniot pita, and the simple trio our grandfathers ate after a day on the Laconian Gulf. No shortcuts — just the grill, the flour, the flame.","hero_btn_menu":"See the Menu","hero_btn_tripleta":"What's a Tripleta?","strip_1":"Charcoal grill","strip_2":"Hand-stretched pita","strip_3":"Laconian olive oil","strip_4":"Family recipes","story_eyebrow":"Our Story","story_title_html":"A grill by the <em>Laconian Gulf.</em>","story_p1":"Gythio was the port of Sparta. Ships left here carrying purple dye, olive oil and warriors; they came back tired and hungry. A thousand years later not much has changed — the boats are smaller, the harbour is prettier, and the hunger is the same. George cooks for that hunger.","story_p2":"Our pita is travixti — pulled by hand, fried in olive oil until it crackles. Our meat is cut in the kitchen, threaded on wooden skewers, and grilled over real charcoal. Our cheese is kaseri, aged and sharp. Put them together and you have the tripleta: the one bite Mani is known for.","story_p3":"We're a few tables on Tzanni Tzannetaki, the street that runs along the harbour. Pull up a chair, order the skewer you want, watch the smoke rise. That's it. That's the whole idea.","fact_1_lbl":"ingredients in a tripleta","fact_2_lbl":"kinds of skewer, one grill","fact_3_lbl":"to ancient Sparta","fact_4_lbl":"charcoal, no gas, no shortcuts","sig_eyebrow":"Σήμα Κατατεθέν · The Signature","sig_title_html":"The <em>Tripleta.</em>","sig_sub":"three things, one perfect bite","sig_intro":"You won't find it the same way outside Mani. A travixti pita, a slab of matured kaseri, and a fresh-off-the-grill skewer — folded together while everything is still hot. It's the sandwich Gythio gave Greece.","trio_1_title":"The Pita","trio_1_gr":"Μανιάτικη Πίτα Τραβηχτή","trio_1_desc":"Dough pulled thin by hand, slipped into hot oil, and fried until the edges blister. Crisp outside, pillowy inside. Nothing like the flat pita you know from the city.","trio_2_title":"The Cheese","trio_2_gr":"Τυρί Κασέρι","trio_2_desc":"A thick slice of aged kaseri, sharp and a little funky. It melts just enough against the hot pita to bind the whole thing together.","trio_3_title":"The Skewer","trio_3_gr":"Καλαμάκι","trio_3_desc":"Your choice: pork, chicken, kebab, veal, pancetta, sheep, or veal sausage. Cooked over charcoal, never gas, seasoned with nothing more than salt, pepper, and oregano.","menu_eyebrow":"Κατάλογος","menu_title_html":"The <em>Menu.</em>","menu_intro":"Prices in euro. Everything grilled to order — give us a few minutes, we'll give you something worth the wait.","feat_title_html":"The <em>Tripleta</em>","feat_sub":"Τριπλέτα · pita + cheese + souvlaki","feat_desc":"Our signature. Maniot travixti pita wrapped around aged kaseri and the skewer of your choice. The taste of Gythio, in one bite.","feat_label":"one for the road","sec_wrapped":"Wrapped","sec_wrapped_note":"pita around the skewer, plus the works","sec_skewers":"Skewers","sec_skewers_note":"just the skewer — the way a kalamaki should be","sec_plates":"Plates","sec_plates_note":"skewers with fries, pita & the sides","sec_sides":"Salads & Sides","sec_sides_note":"fresh, simple, to share","sec_drinks":"Drinks","sec_drinks_note":"cold beer, cold water, and wine by the half-litre from the barrel","item_pork":"Pork Souvlaki","item_chicken":"Chicken Souvlaki","item_kebab":"Kebab","item_pancetta":"Pancetta","item_veal":"Milk-fed Veal","item_veal_sausage_dbl":"Double Veal Sausage","item_sheep":"Sheep Souvlaki","item_pork_s":"Pork","item_chicken_s":"Chicken","item_veal_sausage":"Veal Sausage","item_veal_s":"Milk-fed Veal","item_sheep_s":"Sheep","item_veal_burger":"Veal Burger","item_mix":"Mix Grill","item_mix_sub":"a little of everything","item_greek_salad":"Greek Salad","item_plain_salad":"Plain Salad","item_feta":"Feta Cheese","item_spicy_cheese":"Spicy Cheese Dip","item_tzatziki":"Tzatziki","item_fries":"Hand-cut Fries","item_mani_pita":"Mani Pita","item_extra_cheese":"Extra Cheese","item_soft_drinks":"Soft Drinks","item_beer":"Beer 500ml","item_water_500":"Mineral Water 500ml","item_water_1l":"Mineral Water 1L","item_barrel_wine":"Barrel Wine 500ml","item_barrel_wine_sub":"Κρασί χύμα · house red or white","visit_eyebrow":"Visit Us","visit_title_html":"Come for the <em>tripleta.</em>","visit_intro":"We're on Tzanni Tzannetaki, the street that runs along the harbour — named after the Gythio-born prime minister. Look for the charcoal smoke. That's us.","visit_btn":"Open in Google Maps","visit_where_lbl":"Where","visit_where_sub":"Laconia · Mani · Peloponnese","visit_phone_lbl":"Phone","visit_phone_val":"call the shop","visit_phone_sub":"call ahead for larger groups","visit_hours_lbl":"Hours","visit_hours_note":"hours may shift in winter — it's Greece","day_mon_thu":"Mon – Thu","day_fri_sat":"Fri – Sat","day_sun":"Sunday","visit_find_lbl":"Find us","foot_tagline":"\"Eat well, drink quietly, leave full.\"","foot_menu":"Menu","foot_visit":"Visit","foot_privacy":"Privacy","foot_copyright":"Made with charcoal and a little oregano","item_pork_desc":"Charcoal-grilled, marinated in lemon and oregano","item_chicken_desc":"Charcoal-grilled, simple and tender","item_kebab_desc":"Hand-minced beef, spiced and grilled","item_pancetta_desc":"Pork belly, crisped over the fire","item_veal_desc":"Milk-fed, tender, charcoal-grilled","item_veal_sausage_dbl_desc":"Two fresh veal sausages, grilled","item_sheep_desc":"Mature sheep — deep, traditional flavor","item_pork_s_desc":"Charcoal-grilled, marinated in lemon and oregano","item_chicken_s_desc":"Charcoal-grilled, simple and tender","item_veal_sausage_desc":"Fresh, grilled over the fire","item_veal_s_desc":"Milk-fed, tender, charcoal-grilled","item_sheep_s_desc":"Mature sheep — deep, traditional","item_veal_burger_desc":"Grilled veal patty","item_greek_salad_desc":"Tomato, cucumber, onion, olives, feta, oregano","item_plain_salad_desc":"Lettuce, cucumber, tomato, carrot, olive oil","item_feta_desc":"A slab of feta with olive oil and oregano","item_spicy_cheese_desc":"Whipped feta with roasted peppers","item_tzatziki_desc":"Yogurt, cucumber, garlic, dill","item_fries_desc":"Hand-cut, fried fresh to order","item_mani_pita_desc":"Rustic hand-stretched, from Mani","item_extra_cheese_desc":"A slice of grilled Greek cheese"},"el":{"meta_title":"Το Σουβλάκι του Γιώργου — Γύθειο, Μάνη","meta_desc":"Το Σουβλάκι του Γιώργου στο Γύθειο — παραδοσιακό μανιάτικο σουβλάκι και τραβηχτή πίτα στην Τζαννή Τζαννετάκη, στον Λακωνικό Κόλπο.","nav_story":"Η Ιστορία μας","nav_signature":"Η Τριπλέτα","nav_menu":"Κατάλογος","nav_visit":"Βρείτε μας","nav_cta":"Που είμαστε","hero_eyebrow":"Το Σουβλάκι του Γιώργου · Γύθειο · Μάνη","hero_title_html":"Η σχάρα του Γιώργου, <span class=\"accent\">η τριπλέτα</span><br/>του Γυθείου <span class=\"swash\">&amp;</span><br/>το λιμάνι που<br/><span class=\"accent\">τάιζε τη Σπάρτη.</span>","hero_lede":"Καλαμάκια στα κάρβουνα, τραβηχτή μανιάτικη πίτα, και η απλή τριπλέτα που έτρωγαν οι παππούδες μας μετά από μια μέρα στον Λακωνικό. Χωρίς συμβιβασμούς — μόνο η σχάρα, το αλεύρι, η φλόγα.","hero_btn_menu":"Δείτε τον Κατάλογο","hero_btn_tripleta":"Τι είναι η Τριπλέτα;","strip_1":"Ψήσιμο στα κάρβουνα","strip_2":"Τραβηχτή πίτα","strip_3":"Λακωνικό ελαιόλαδο","strip_4":"Οικογενειακές συνταγές","story_eyebrow":"Η Ιστορία μας","story_title_html":"Μια σχάρα στον <em>Λακωνικό Κόλπο.</em>","story_p1":"Το Γύθειο ήταν το λιμάνι της Σπάρτης. Από εδώ έφευγαν πλοία με πορφύρα, ελαιόλαδο και πολεμιστές· γύριζαν κουρασμένοι και πεινασμένοι. Χίλια χρόνια αργότερα δεν άλλαξαν και πολλά — τα καΐκια είναι μικρότερα, το λιμάνι ομορφότερο, η πείνα η ίδια. Ο Γιώργος μαγειρεύει για αυτή την πείνα.","story_p2":"Η πίτα μας είναι τραβηχτή — ανοιγμένη στο χέρι, τηγανισμένη σε ελαιόλαδο μέχρι να τρίζει. Το κρέας κόβεται στην κουζίνα, περνιέται σε ξύλινα καλαμάκια και ψήνεται σε αληθινά κάρβουνα. Το τυρί μας είναι κασέρι, ώριμο και μυρωδάτο. Ενώστε τα και έχετε την τριπλέτα: τη μια μπουκιά που έκανε τη Μάνη διάσημη.","story_p3":"Είμαστε λίγα τραπέζια στην Τζαννή Τζαννετάκη, τον δρόμο που περνά δίπλα από το λιμάνι. Καθίστε, παραγγείλτε το καλαμάκι που θέλετε, κοιτάξτε τον καπνό να ανεβαίνει. Αυτό είναι όλο. Αυτή είναι όλη η ιδέα.","fact_1_lbl":"υλικά στην τριπλέτα","fact_2_lbl":"είδη καλαμάκι, μία σχάρα","fact_3_lbl":"από την αρχαία Σπάρτη","fact_4_lbl":"κάρβουνο, χωρίς γκάζι, χωρίς συμβιβασμούς","sig_eyebrow":"Σήμα Κατατεθέν","sig_title_html":"Η <em>Τριπλέτα.</em>","sig_sub":"τρία πράγματα, μία τέλεια μπουκιά","sig_intro":"Δεν θα τη βρείτε έτσι έξω από τη Μάνη. Τραβηχτή πίτα, μια φέτα ώριμο κασέρι, κι ένα καλαμάκι φρέσκο από τη σχάρα — τυλιγμένα όσο όλα είναι ακόμα καυτά. Είναι το σάντουιτς που έδωσε το Γύθειο στην Ελλάδα.","trio_1_title":"Η Πίτα","trio_1_gr":"Μανιάτικη Πίτα Τραβηχτή","trio_1_desc":"Ζύμη τραβηγμένη στο χέρι, ρίχνεται σε καυτό λάδι και τηγανίζεται μέχρι να φουσκώσουν οι άκρες. Τραγανή έξω, αφράτη μέσα. Τίποτα να κάνει με την πίτα που ξέρετε από την πόλη.","trio_2_title":"Το Τυρί","trio_2_gr":"Τυρί Κασέρι","trio_2_desc":"Μια χοντρή φέτα ώριμο κασέρι, έντονο και λίγο πιπεράτο. Λιώνει όσο χρειάζεται πάνω στη ζεστή πίτα για να δέσει το όλο.","trio_3_title":"Το Καλαμάκι","trio_3_gr":"Καλαμάκι","trio_3_desc":"Όπως το θέλετε: χοιρινό, κοτόπουλο, κεμπάπ, μοσχάρι, πανσετάκι, προβατίνα ή λουκάνικο μοσχαρίσιο. Στα κάρβουνα, ποτέ γκάζι, με αλάτι, πιπέρι και ρίγανη — τίποτα άλλο.","menu_eyebrow":"Κατάλογος","menu_title_html":"Ο <em>Κατάλογος.</em>","menu_intro":"Τιμές σε ευρώ. Όλα ψημένα την ώρα της παραγγελίας — δώστε μας λίγα λεπτά, θα σας δώσουμε κάτι που αξίζει την αναμονή.","feat_title_html":"Η <em>Τριπλέτα</em>","feat_sub":"Τριπλέτα · πίτα + τυρί + σουβλάκι","feat_desc":"Το σήμα κατατεθέν μας. Μανιάτικη τραβηχτή πίτα γύρω από ώριμο κασέρι και το καλαμάκι της επιλογής σας. Η γεύση του Γυθείου, σε μία μπουκιά.","feat_label":"μία για τον δρόμο","sec_wrapped":"Πίτες","sec_wrapped_note":"πίτα γύρω από το καλαμάκι, με τα όλα της","sec_skewers":"Καλαμάκια","sec_skewers_note":"μόνο το καλαμάκι — όπως πρέπει να είναι","sec_plates":"Μερίδες","sec_plates_note":"καλαμάκια με πατάτες, πίτα και γαρνιτούρες","sec_sides":"Σαλάτες & Ορεκτικά","sec_sides_note":"φρέσκα, απλά, να μοιράζονται","sec_drinks":"Ποτά","sec_drinks_note":"κρύα μπύρα, κρύο νερό, και κρασί χύμα από το βαρέλι","item_pork":"Χοιρινό","item_chicken":"Κοτόπουλο","item_kebab":"Κεμπάπ","item_pancetta":"Πανσετάκι","item_veal":"Μοσχάρι γάλακτος","item_veal_sausage_dbl":"Διπλό λουκάνικο μοσχαρίσιο","item_sheep":"Προβατίνα","item_pork_s":"Χοιρινό","item_chicken_s":"Κοτόπουλο","item_veal_sausage":"Λουκάνικο μοσχαρίσιο","item_veal_s":"Μοσχάρι γάλακτος","item_sheep_s":"Προβατίνα","item_veal_burger":"Μπιφτέκι","item_mix":"Μιξ Γκριλ","item_mix_sub":"λίγο απ' όλα","item_greek_salad":"Χωριάτικη","item_plain_salad":"Σαλάτα απλή","item_feta":"Φέτα","item_spicy_cheese":"Τυροκαυτερή","item_tzatziki":"Τζατζίκι","item_fries":"Πατάτες τηγανητές φρέσκιες","item_mani_pita":"Μανιάτικη Πίτα","item_extra_cheese":"Τυρί επιπλέον","item_soft_drinks":"Αναψυκτικά","item_beer":"Μπύρα 500ml","item_water_500":"Νερό 500ml","item_water_1l":"Νερό 1L","item_barrel_wine":"Κρασί χύμα 500ml","item_barrel_wine_sub":"λευκό ή κόκκινο, σπιτικό","visit_eyebrow":"Βρείτε μας","visit_title_html":"Ελάτε για την <em>τριπλέτα.</em>","visit_intro":"Είμαστε στην Τζαννή Τζαννετάκη, τον δρόμο που περνά δίπλα από το λιμάνι — πήρε το όνομά του από τον Γυθειάτη πρωθυπουργό. Ψάξτε για τον καπνό από τα κάρβουνα. Εμείς είμαστε.","visit_btn":"Άνοιγμα στο Google Maps","visit_where_lbl":"Διεύθυνση","visit_where_sub":"Λακωνία · Μάνη · Πελοπόννησος","visit_phone_lbl":"Τηλέφωνο","visit_phone_val":"τηλεφωνήστε μας","visit_phone_sub":"καλέστε για μεγάλες παρέες","visit_hours_lbl":"Ώρες","visit_hours_note":"οι ώρες μπορεί να αλλάζουν τον χειμώνα","day_mon_thu":"Δευ – Πεμ","day_fri_sat":"Παρ – Σαβ","day_sun":"Κυριακή","visit_find_lbl":"Βρείτε μας","foot_tagline":"«Φάε καλά, πιες ήσυχα, φύγε χορτάτος.»","foot_menu":"Κατάλογος","foot_visit":"Βρείτε μας","foot_privacy":"Απόρρητο","foot_copyright":"Φτιαγμένο με κάρβουνο και λίγη ρίγανη","item_pork_desc":"Στα κάρβουνα, μαρινάτο με λεμόνι και ρίγανη","item_chicken_desc":"Στα κάρβουνα, απλό και τρυφερό","item_kebab_desc":"Κιμάς κομμένος στο χέρι, με μπαχαρικά, στη σχάρα","item_pancetta_desc":"Πανσέτα, τραγανή πάνω απ' τη φωτιά","item_veal_desc":"Μοσχάρι γάλακτος, τρυφερό, στα κάρβουνα","item_veal_sausage_dbl_desc":"Δύο φρέσκα μοσχαρίσια λουκάνικα, στη σχάρα","item_sheep_desc":"Προβατίνα — βαθιά, παραδοσιακή γεύση","item_pork_s_desc":"Στα κάρβουνα, μαρινάτο με λεμόνι και ρίγανη","item_chicken_s_desc":"Στα κάρβουνα, απλό και τρυφερό","item_veal_sausage_desc":"Φρέσκο, πάνω από τη φωτιά","item_veal_s_desc":"Μοσχάρι γάλακτος, τρυφερό, στα κάρβουνα","item_sheep_s_desc":"Προβατίνα — βαθιά, παραδοσιακή","item_veal_burger_desc":"Ψητό μπιφτέκι","item_greek_salad_desc":"Ντομάτα, αγγούρι, κρεμμύδι, ελιές, φέτα, ρίγανη","item_plain_salad_desc":"Μαρούλι, αγγούρι, ντομάτα, καρότο, ελαιόλαδο","item_feta_desc":"Μια φέτα με ελαιόλαδο και ρίγανη","item_spicy_cheese_desc":"Χτυπημένη φέτα με ψητές πιπεριές","item_tzatziki_desc":"Γιαούρτι, αγγούρι, σκόρδο, άνηθος","item_fries_desc":"Κομμένες στο χέρι, τηγανητές στη στιγμή","item_mani_pita_desc":"Χειροποίητη τραβηχτή, από τη Μάνη","item_extra_cheese_desc":"Μια φέτα ψημένο ελληνικό τυρί"},"de":{"meta_title":"Το Σουβλάκι του Γιώργου — Souvlaki & Travixti · Gythio, Mani","meta_desc":"Georgs Souvlaki in Gythio — traditionelles Souvlaki aus der Mani und handgezogene Travixti-Pita in der Tzanni-Tzannetaki-Straße am Lakonischen Golf.","nav_story":"Unsere Geschichte","nav_signature":"Die Tripleta","nav_menu":"Speisekarte","nav_visit":"Besuchen","nav_cta":"Finde uns","hero_eyebrow":"Το Σουβλάκι του Γιώργου · Gythio · Mani","hero_title_html":"Georgs Grill, <span class=\"accent\">Gythios</span><br/>Tripleta <span class=\"swash\">&amp;</span><br/>ein Hafen, der einst<br/><span class=\"accent\">Sparta ernährte.</span>","hero_lede":"Spieße über Holzkohle, handgezogene Pita aus der Mani und das einfache Trio, das unsere Großväter nach einem Tag am Lakonischen Golf aßen. Keine Abkürzungen — nur der Grill, das Mehl, die Flamme.","hero_btn_menu":"Speisekarte ansehen","hero_btn_tripleta":"Was ist eine Tripleta?","strip_1":"Holzkohlegrill","strip_2":"Handgezogene Pita","strip_3":"Lakonisches Olivenöl","strip_4":"Familienrezepte","story_eyebrow":"Unsere Geschichte","story_title_html":"Ein Grill am <em>Lakonischen Golf.</em>","story_p1":"Gythio war der Hafen Spartas. Schiffe legten hier ab mit Purpur, Olivenöl und Kriegern; sie kehrten müde und hungrig zurück. Tausend Jahre später hat sich nicht viel geändert — die Boote sind kleiner, der Hafen ist schöner, der Hunger ist derselbe. George kocht für diesen Hunger.","story_p2":"Unsere Pita ist Travixti — von Hand gezogen, in Olivenöl gebacken, bis sie knistert. Unser Fleisch wird in der Küche geschnitten, auf Holzspieße gesteckt und über echter Holzkohle gegrillt. Unser Käse ist gereifter Kasseri, kräftig und würzig. Zusammen ergeben sie die Tripleta: der eine Bissen, für den die Mani bekannt ist.","story_p3":"Wir sind ein paar Tische in der Tzanni Tzannetaki, der Straße am Hafen. Setzen Sie sich, bestellen Sie den Spieß, den Sie möchten, und schauen Sie dem Rauch zu. Das ist alles. Das ist die ganze Idee.","fact_1_lbl":"Zutaten in einer Tripleta","fact_2_lbl":"Spießarten, ein Grill","fact_3_lbl":"zum antiken Sparta","fact_4_lbl":"Holzkohle, kein Gas, keine Abkürzungen","sig_eyebrow":"Σήμα Κατατεθέν · Unser Markenzeichen","sig_title_html":"Die <em>Tripleta.</em>","sig_sub":"drei Dinge, ein perfekter Bissen","sig_intro":"Außerhalb der Mani finden Sie sie nicht in dieser Form. Eine Travixti-Pita, eine Scheibe gereifter Kasseri und ein frisch vom Grill kommender Spieß — zusammengefaltet, solange alles noch heiß ist. Es ist das Sandwich, das Gythio Griechenland schenkte.","trio_1_title":"Die Pita","trio_1_gr":"Μανιάτικη Πίτα Τραβηχτή","trio_1_desc":"Teig von Hand dünn gezogen, ins heiße Öl gegeben und gebacken, bis die Ränder aufplatzen. Knusprig außen, luftig innen. Nichts wie die flache Pita, die Sie aus der Stadt kennen.","trio_2_title":"Der Käse","trio_2_gr":"Τυρί Κασέρι","trio_2_desc":"Eine dicke Scheibe gereifter Kasseri, kräftig und etwas würzig. Er schmilzt gerade genug auf der heißen Pita, um das Ganze zusammenzuhalten.","trio_3_title":"Der Spieß","trio_3_gr":"Καλαμάκι","trio_3_desc":"Ihre Wahl: Schwein, Hähnchen, Kebab, Kalb, Pancetta, Schaf oder Kalbswurst. Über Holzkohle gegrillt, nie über Gas, gewürzt nur mit Salz, Pfeffer und Oregano.","menu_eyebrow":"Κατάλογος · Speisekarte","menu_title_html":"Die <em>Speisekarte.</em>","menu_intro":"Preise in Euro. Alles frisch gegrillt — geben Sie uns ein paar Minuten, und wir geben Ihnen etwas, das das Warten wert ist.","feat_title_html":"Die <em>Tripleta</em>","feat_sub":"Τριπλέτα · Pita + Käse + Souvlaki","feat_desc":"Unser Markenzeichen. Maniotische Travixti-Pita um gereiften Kasseri und den Spieß Ihrer Wahl gefaltet. Der Geschmack von Gythio in einem Bissen.","feat_label":"einer für unterwegs","sec_wrapped":"In der Pita","sec_wrapped_note":"Pita um den Spieß, mit allem drum und dran","sec_skewers":"Spieße","sec_skewers_note":"nur der Spieß — wie ein Kalamaki sein sollte","sec_plates":"Portionen","sec_plates_note":"Spieße mit Pommes, Pita und Beilagen","sec_sides":"Salate & Beilagen","sec_sides_note":"frisch, einfach, zum Teilen","sec_drinks":"Getränke","sec_drinks_note":"kaltes Bier, kaltes Wasser und Wein aus dem Fass","item_pork":"Schweinesouvlaki","item_chicken":"Hähnchensouvlaki","item_kebab":"Kebab","item_pancetta":"Pancetta","item_veal":"Milchkalb","item_veal_sausage_dbl":"Doppelte Kalbswurst","item_sheep":"Schafsouvlaki","item_pork_s":"Schwein","item_chicken_s":"Hähnchen","item_veal_sausage":"Kalbswurst","item_veal_s":"Milchkalb","item_sheep_s":"Schaf","item_veal_burger":"Bifteki (Kalb)","item_mix":"Gemischter Grill","item_mix_sub":"von allem etwas","item_greek_salad":"Griechischer Salat","item_plain_salad":"Einfacher Salat","item_feta":"Feta","item_spicy_cheese":"Pikanter Käsedip","item_tzatziki":"Tzatziki","item_fries":"Hausgemachte Pommes","item_mani_pita":"Mani-Pita","item_extra_cheese":"Extra Käse","item_soft_drinks":"Softdrinks","item_beer":"Bier 500ml","item_water_500":"Mineralwasser 500ml","item_water_1l":"Mineralwasser 1L","item_barrel_wine":"Fasswein 500ml","item_barrel_wine_sub":"Hauswein, weiß oder rot","visit_eyebrow":"Besuchen Sie uns","visit_title_html":"Kommen Sie für die <em>Tripleta.</em>","visit_intro":"Wir sind in der Tzanni Tzannetaki, der Straße am Hafen — benannt nach dem aus Gythio stammenden Ministerpräsidenten. Achten Sie auf den Holzkohlerauch. Das sind wir.","visit_btn":"In Google Maps öffnen","visit_where_lbl":"Adresse","visit_where_sub":"Lakonien · Mani · Peloponnes","visit_phone_lbl":"Telefon","visit_phone_val":"rufen Sie uns an","visit_phone_sub":"für größere Gruppen bitte vorher anrufen","visit_hours_lbl":"Öffnungszeiten","visit_hours_note":"im Winter können die Zeiten variieren — Griechenland","day_mon_thu":"Mo – Do","day_fri_sat":"Fr – Sa","day_sun":"Sonntag","visit_find_lbl":"Finden Sie uns","foot_tagline":"„Iss gut, trink ruhig, geh satt nach Hause.“","foot_menu":"Speisekarte","foot_visit":"Besuchen","foot_privacy":"Datenschutz","foot_copyright":"Mit Holzkohle und etwas Oregano gemacht","item_pork_desc":"Über Holzkohle, mariniert mit Zitrone und Oregano","item_chicken_desc":"Über Holzkohle, einfach und zart","item_kebab_desc":"Von Hand gehacktes Rind, gewürzt und gegrillt","item_pancetta_desc":"Schweinebauch, über dem Feuer knusprig","item_veal_desc":"Milchkalb, zart, über Holzkohle","item_veal_sausage_dbl_desc":"Zwei frische Kalbswürste, gegrillt","item_sheep_desc":"Schaf — tiefer, traditioneller Geschmack","item_pork_s_desc":"Über Holzkohle, mariniert mit Zitrone und Oregano","item_chicken_s_desc":"Über Holzkohle, einfach und zart","item_veal_sausage_desc":"Frisch, über dem Feuer","item_veal_s_desc":"Milchkalb, zart, über Holzkohle","item_sheep_s_desc":"Schaf — tief, traditionell","item_veal_burger_desc":"Gegrillte Kalbsfrikadelle","item_greek_salad_desc":"Tomate, Gurke, Zwiebel, Oliven, Feta, Oregano","item_plain_salad_desc":"Salat, Gurke, Tomate, Karotte, Olivenöl","item_feta_desc":"Ein Stück Feta mit Olivenöl und Oregano","item_spicy_cheese_desc":"Aufgeschlagener Feta mit gerösteten Paprika","item_tzatziki_desc":"Joghurt, Gurke, Knoblauch, Dill","item_fries_desc":"Handgeschnitten, frisch frittiert","item_mani_pita_desc":"Rustikal handgezogen, aus der Mani","item_extra_cheese_desc":"Eine Scheibe gegrillter griechischer Käse"},"fr":{"meta_title":"Το Σουβλάκι του Γιώργου — Souvlaki & Travixti · Gythio, Magne","meta_desc":"Le Souvlaki de Giorgos à Gythio — souvlaki maniote traditionnel et pita travixti étirée à la main, rue Tzanni Tzannetaki, au bord du golfe Laconique.","nav_story":"Notre Histoire","nav_signature":"La Tripleta","nav_menu":"Carte","nav_visit":"Nous Trouver","nav_cta":"Nous Trouver","hero_eyebrow":"Το Σουβλάκι του Γιώργου · Gythio · Magne","hero_title_html":"Le grill de Giorgos, <span class=\"accent\">la tripleta</span><br/>de Gythio <span class=\"swash\">&amp;</span><br/>un port qui<br/><span class=\"accent\">nourrit jadis Sparte.</span>","hero_lede":"Des brochettes sur braise, une pita maniote étirée à la main, et le simple trio que mangeaient nos grands-pères après une journée sur le golfe Laconique. Sans raccourcis — juste le grill, la farine, la flamme.","hero_btn_menu":"Voir la Carte","hero_btn_tripleta":"Qu'est-ce qu'une Tripleta ?","strip_1":"Grill au charbon","strip_2":"Pita étirée à la main","strip_3":"Huile d'olive laconienne","strip_4":"Recettes de famille","story_eyebrow":"Notre Histoire","story_title_html":"Un grill au bord du <em>golfe Laconique.</em>","story_p1":"Gythio était le port de Sparte. Les navires partaient d'ici chargés de pourpre, d'huile d'olive et de guerriers ; ils revenaient fatigués et affamés. Mille ans plus tard, peu de choses ont changé — les bateaux sont plus petits, le port est plus joli, la faim est la même. Giorgos cuisine pour cette faim.","story_p2":"Notre pita est travixti — étirée à la main, frite dans l'huile d'olive jusqu'à ce qu'elle craque. Notre viande est coupée en cuisine, enfilée sur des brochettes de bois, et grillée sur de vraies braises. Notre fromage est du kasseri affiné, puissant et relevé. Réunissez-les et vous avez la tripleta : la bouchée pour laquelle la Magne est connue.","story_p3":"Nous sommes quelques tables rue Tzanni Tzannetaki, la rue qui longe le port. Asseyez-vous, commandez la brochette que vous voulez, regardez la fumée monter. C'est tout. C'est toute l'idée.","fact_1_lbl":"ingrédients dans une tripleta","fact_2_lbl":"brochettes, un seul grill","fact_3_lbl":"de l'antique Sparte","fact_4_lbl":"charbon, pas de gaz, pas de raccourcis","sig_eyebrow":"Σήμα Κατατεθέν · La Signature","sig_title_html":"La <em>Tripleta.</em>","sig_sub":"trois choses, une bouchée parfaite","sig_intro":"Vous ne la trouverez pas ainsi ailleurs qu'en Magne. Une pita travixti, une tranche de kasseri affiné, et une brochette tout juste sortie du grill — pliées ensemble pendant que tout est encore chaud. C'est le sandwich que Gythio a offert à la Grèce.","trio_1_title":"La Pita","trio_1_gr":"Μανιάτικη Πίτα Τραβηχτή","trio_1_desc":"Pâte étirée finement à la main, plongée dans l'huile chaude, frite jusqu'à ce que les bords cloquent. Croustillante dehors, moelleuse dedans. Rien à voir avec la pita plate que vous connaissez en ville.","trio_2_title":"Le Fromage","trio_2_gr":"Τυρί Κασέρι","trio_2_desc":"Une tranche épaisse de kasseri affiné, puissante et un peu corsée. Elle fond juste ce qu'il faut contre la pita chaude pour lier le tout.","trio_3_title":"La Brochette","trio_3_gr":"Καλαμάκι","trio_3_desc":"À votre choix : porc, poulet, kebab, veau, pancetta, mouton ou saucisse de veau. Cuite sur braise, jamais au gaz, assaisonnée de rien de plus que sel, poivre et origan.","menu_eyebrow":"Κατάλογος · La Carte","menu_title_html":"La <em>Carte.</em>","menu_intro":"Prix en euros. Tout est grillé à la commande — donnez-nous quelques minutes, nous vous donnerons quelque chose qui vaut l'attente.","feat_title_html":"La <em>Tripleta</em>","feat_sub":"Τριπλέτα · pita + fromage + souvlaki","feat_desc":"Notre signature. Pita travixti maniote enroulée autour du kasseri affiné et de la brochette de votre choix. Le goût de Gythio en une bouchée.","feat_label":"une pour la route","sec_wrapped":"En Pita","sec_wrapped_note":"pita autour de la brochette, avec tout ce qu'il faut","sec_skewers":"Brochettes","sec_skewers_note":"juste la brochette — comme un kalamaki doit être","sec_plates":"Assiettes","sec_plates_note":"brochettes avec frites, pita et accompagnements","sec_sides":"Salades & Entrées","sec_sides_note":"frais, simples, à partager","sec_drinks":"Boissons","sec_drinks_note":"bière fraîche, eau fraîche, et vin au pichet","item_pork":"Souvlaki de Porc","item_chicken":"Souvlaki de Poulet","item_kebab":"Kebab","item_pancetta":"Pancetta","item_veal":"Veau de Lait","item_veal_sausage_dbl":"Double Saucisse de Veau","item_sheep":"Souvlaki de Mouton","item_pork_s":"Porc","item_chicken_s":"Poulet","item_veal_sausage":"Saucisse de Veau","item_veal_s":"Veau de Lait","item_sheep_s":"Mouton","item_veal_burger":"Bifteki (veau)","item_mix":"Grill Mixte","item_mix_sub":"un peu de tout","item_greek_salad":"Salade Grecque","item_plain_salad":"Salade Simple","item_feta":"Feta","item_spicy_cheese":"Fromage Piquant","item_tzatziki":"Tzatziki","item_fries":"Frites Maison","item_mani_pita":"Pita Maniote","item_extra_cheese":"Supplément Fromage","item_soft_drinks":"Sodas","item_beer":"Bière 500ml","item_water_500":"Eau Minérale 500ml","item_water_1l":"Eau Minérale 1L","item_barrel_wine":"Vin au Pichet 500ml","item_barrel_wine_sub":"rouge ou blanc maison","visit_eyebrow":"Nous Rendre Visite","visit_title_html":"Venez pour la <em>tripleta.</em>","visit_intro":"Nous sommes rue Tzanni Tzannetaki, la rue qui longe le port — nommée d'après le Premier ministre originaire de Gythio. Cherchez la fumée du charbon. C'est nous.","visit_btn":"Ouvrir dans Google Maps","visit_where_lbl":"Adresse","visit_where_sub":"Laconie · Magne · Péloponnèse","visit_phone_lbl":"Téléphone","visit_phone_val":"appelez-nous","visit_phone_sub":"appelez à l'avance pour les grands groupes","visit_hours_lbl":"Horaires","visit_hours_note":"les horaires peuvent varier en hiver — c'est la Grèce","day_mon_thu":"Lun – Jeu","day_fri_sat":"Ven – Sam","day_sun":"Dimanche","visit_find_lbl":"Nous trouver","foot_tagline":"« Mange bien, bois tranquille, pars le ventre plein. »","foot_menu":"Carte","foot_visit":"Visite","foot_privacy":"Confidentialité","foot_copyright":"Fait au charbon et à l'origan","item_pork_desc":"Au charbon, mariné au citron et à l'origan","item_chicken_desc":"Au charbon, simple et tendre","item_kebab_desc":"Bœuf haché à la main, épicé et grillé","item_pancetta_desc":"Poitrine de porc, croustillante sur la flamme","item_veal_desc":"Veau de lait, tendre, au charbon","item_veal_sausage_dbl_desc":"Deux saucisses de veau fraîches, grillées","item_sheep_desc":"Brebis — saveur profonde, traditionnelle","item_pork_s_desc":"Au charbon, mariné au citron et à l'origan","item_chicken_s_desc":"Au charbon, simple et tendre","item_veal_sausage_desc":"Fraîche, sur la flamme","item_veal_s_desc":"Veau de lait, tendre, au charbon","item_sheep_s_desc":"Brebis — profonde, traditionnelle","item_veal_burger_desc":"Steak haché de veau grillé","item_greek_salad_desc":"Tomate, concombre, oignon, olives, feta, origan","item_plain_salad_desc":"Laitue, concombre, tomate, carotte, huile d'olive","item_feta_desc":"Une tranche de feta avec huile d'olive et origan","item_spicy_cheese_desc":"Feta fouettée aux poivrons grillés","item_tzatziki_desc":"Yaourt, concombre, ail, aneth","item_fries_desc":"Coupées main, frites à la commande","item_mani_pita_desc":"Étirée à la main, de la Magne","item_extra_cheese_desc":"Une tranche de fromage grec grillé"},"es":{"meta_title":"Το Σουβλάκι του Γιώργου — Souvlaki & Travixti · Gythio, Mani","meta_desc":"El Souvlaki de Giorgos en Gythio — souvlaki maniota tradicional y pita travixti estirada a mano, en la calle Tzanni Tzannetaki, junto al golfo Lacónico.","nav_story":"Nuestra Historia","nav_signature":"La Tripleta","nav_menu":"Carta","nav_visit":"Visítanos","nav_cta":"Encuéntranos","hero_eyebrow":"Το Σουβλάκι του Γιώργου · Gythio · Mani","hero_title_html":"La parrilla de Giorgos, <span class=\"accent\">la tripleta</span><br/>de Gythio <span class=\"swash\">&amp;</span><br/>un puerto que<br/><span class=\"accent\">alimentó a Esparta.</span>","hero_lede":"Pinchos a la brasa, pita maniota estirada a mano, y el trío sencillo que nuestros abuelos comían tras una jornada en el golfo Lacónico. Sin atajos — solo la parrilla, la harina, la llama.","hero_btn_menu":"Ver la Carta","hero_btn_tripleta":"¿Qué es una Tripleta?","strip_1":"Parrilla de carbón","strip_2":"Pita estirada a mano","strip_3":"Aceite de oliva lacónico","strip_4":"Recetas de familia","story_eyebrow":"Nuestra Historia","story_title_html":"Una parrilla junto al <em>golfo Lacónico.</em>","story_p1":"Gythio era el puerto de Esparta. De aquí salían los barcos cargados de púrpura, aceite de oliva y guerreros; volvían cansados y hambrientos. Mil años después, poco ha cambiado — los barcos son más pequeños, el puerto más bonito, el hambre la misma. Giorgos cocina para ese hambre.","story_p2":"Nuestra pita es travixti — estirada a mano, frita en aceite de oliva hasta que cruje. La carne se corta en la cocina, se ensarta en pinchos de madera y se asa sobre brasas de verdad. Nuestro queso es kasseri curado, fuerte y sabroso. Júntalos y tienes la tripleta: el bocado por el que Mani es famosa.","story_p3":"Somos unas pocas mesas en Tzanni Tzannetaki, la calle que bordea el puerto. Siéntate, pide el pincho que quieras, mira subir el humo. Eso es todo. Esa es la idea entera.","fact_1_lbl":"ingredientes en una tripleta","fact_2_lbl":"tipos de pincho, una parrilla","fact_3_lbl":"a la antigua Esparta","fact_4_lbl":"carbón, sin gas, sin atajos","sig_eyebrow":"Σήμα Κατατεθέν · La Firma","sig_title_html":"La <em>Tripleta.</em>","sig_sub":"tres cosas, un bocado perfecto","sig_intro":"No la encontrarás igual fuera de Mani. Una pita travixti, una loncha gruesa de kasseri curado, y un pincho recién salido de la parrilla — doblados juntos mientras todo sigue caliente. Es el bocadillo que Gythio le dio a Grecia.","trio_1_title":"La Pita","trio_1_gr":"Μανιάτικη Πίτα Τραβηχτή","trio_1_desc":"Masa estirada fina a mano, echada al aceite caliente, frita hasta que los bordes se ampollan. Crujiente por fuera, esponjosa por dentro. Nada que ver con la pita plana que conoces de la ciudad.","trio_2_title":"El Queso","trio_2_gr":"Τυρί Κασέρι","trio_2_desc":"Una loncha gruesa de kasseri curado, intenso y con carácter. Se derrite lo justo contra la pita caliente para unirlo todo.","trio_3_title":"El Pincho","trio_3_gr":"Καλαμάκι","trio_3_desc":"A tu gusto: cerdo, pollo, kebab, ternera, panceta, oveja o salchicha de ternera. A la brasa, nunca al gas, sazonado solo con sal, pimienta y orégano.","menu_eyebrow":"Κατάλογος · La Carta","menu_title_html":"La <em>Carta.</em>","menu_intro":"Precios en euros. Todo se asa al momento — danos unos minutos, te daremos algo que merece la espera.","feat_title_html":"La <em>Tripleta</em>","feat_sub":"Τριπλέτα · pita + queso + souvlaki","feat_desc":"Nuestra firma. Pita travixti maniota envuelta alrededor de kasseri curado y el pincho que elijas. El sabor de Gythio en un bocado.","feat_label":"uno para el camino","sec_wrapped":"En Pita","sec_wrapped_note":"pita alrededor del pincho, con todos los añadidos","sec_skewers":"Pinchos","sec_skewers_note":"solo el pincho — como un kalamaki debe ser","sec_plates":"Platos","sec_plates_note":"pinchos con patatas, pita y guarniciones","sec_sides":"Ensaladas y Entrantes","sec_sides_note":"frescos, sencillos, para compartir","sec_drinks":"Bebidas","sec_drinks_note":"cerveza fría, agua fría, y vino de la barrica","item_pork":"Souvlaki de Cerdo","item_chicken":"Souvlaki de Pollo","item_kebab":"Kebab","item_pancetta":"Panceta","item_veal":"Ternera Lechal","item_veal_sausage_dbl":"Doble Salchicha de Ternera","item_sheep":"Souvlaki de Oveja","item_pork_s":"Cerdo","item_chicken_s":"Pollo","item_veal_sausage":"Salchicha de Ternera","item_veal_s":"Ternera Lechal","item_sheep_s":"Oveja","item_veal_burger":"Bifteki (ternera)","item_mix":"Parrillada Mixta","item_mix_sub":"un poco de todo","item_greek_salad":"Ensalada Griega","item_plain_salad":"Ensalada Sencilla","item_feta":"Feta","item_spicy_cheese":"Queso Picante","item_tzatziki":"Tzatziki","item_fries":"Patatas Caseras","item_mani_pita":"Pita Maniota","item_extra_cheese":"Queso Extra","item_soft_drinks":"Refrescos","item_beer":"Cerveza 500ml","item_water_500":"Agua Mineral 500ml","item_water_1l":"Agua Mineral 1L","item_barrel_wine":"Vino de Barrica 500ml","item_barrel_wine_sub":"tinto o blanco de la casa","visit_eyebrow":"Visítanos","visit_title_html":"Ven por la <em>tripleta.</em>","visit_intro":"Estamos en Tzanni Tzannetaki, la calle que bordea el puerto — lleva el nombre del primer ministro nacido en Gythio. Busca el humo del carbón. Somos nosotros.","visit_btn":"Abrir en Google Maps","visit_where_lbl":"Dirección","visit_where_sub":"Laconia · Mani · Peloponeso","visit_phone_lbl":"Teléfono","visit_phone_val":"llámanos","visit_phone_sub":"llama antes para grupos grandes","visit_hours_lbl":"Horario","visit_hours_note":"el horario puede variar en invierno — esto es Grecia","day_mon_thu":"Lun – Jue","day_fri_sat":"Vie – Sáb","day_sun":"Domingo","visit_find_lbl":"Encuéntranos","foot_tagline":"«Come bien, bebe tranquilo, vete lleno.»","foot_menu":"Carta","foot_visit":"Visita","foot_privacy":"Privacidad","foot_copyright":"Hecho con carbón y un poco de orégano","item_pork_desc":"A la brasa, marinado con limón y orégano","item_chicken_desc":"A la brasa, sencillo y tierno","item_kebab_desc":"Ternera picada a mano, especiada, a la parrilla","item_pancetta_desc":"Panceta, crujiente sobre la llama","item_veal_desc":"Ternera lechal, tierna, a la brasa","item_veal_sausage_dbl_desc":"Dos salchichas frescas de ternera, a la parrilla","item_sheep_desc":"Oveja — sabor profundo, tradicional","item_pork_s_desc":"A la brasa, marinado con limón y orégano","item_chicken_s_desc":"A la brasa, sencillo y tierno","item_veal_sausage_desc":"Fresca, sobre la llama","item_veal_s_desc":"Ternera lechal, tierna, a la brasa","item_sheep_s_desc":"Oveja — profunda, tradicional","item_veal_burger_desc":"Hamburguesa de ternera a la parrilla","item_greek_salad_desc":"Tomate, pepino, cebolla, aceitunas, feta, orégano","item_plain_salad_desc":"Lechuga, pepino, tomate, zanahoria, aceite de oliva","item_feta_desc":"Una loncha de feta con aceite de oliva y orégano","item_spicy_cheese_desc":"Feta batida con pimientos asados","item_tzatziki_desc":"Yogur, pepino, ajo, eneldo","item_fries_desc":"Cortadas a mano, fritas al momento","item_mani_pita_desc":"Estirada a mano, de Mani","item_extra_cheese_desc":"Una loncha de queso griego a la parrilla"},"it":{"meta_title":"Το Σουβλάκι του Γιώργου — Souvlaki & Travixti · Gythio, Mani","meta_desc":"Il Souvlaki di Giorgos a Gythio — souvlaki tradizionale della Mani e pita travixti stesa a mano, in via Tzanni Tzannetaki, sul golfo Laconico.","nav_story":"La Nostra Storia","nav_signature":"La Tripleta","nav_menu":"Menù","nav_visit":"Dove Siamo","nav_cta":"Trovaci","hero_eyebrow":"Το Σουβλάκι του Γιώργου · Gythio · Mani","hero_title_html":"La griglia di Giorgos, <span class=\"accent\">la tripleta</span><br/>di Gythio <span class=\"swash\">&amp;</span><br/>un porto che<br/><span class=\"accent\">sfamava Sparta.</span>","hero_lede":"Spiedini sulla brace, pita della Mani stesa a mano, e il semplice trio che i nostri nonni mangiavano dopo una giornata sul golfo Laconico. Senza scorciatoie — solo la griglia, la farina, la fiamma.","hero_btn_menu":"Vedi il Menù","hero_btn_tripleta":"Cos'è una Tripleta?","strip_1":"Griglia a carbone","strip_2":"Pita stesa a mano","strip_3":"Olio d'oliva laconico","strip_4":"Ricette di famiglia","story_eyebrow":"La Nostra Storia","story_title_html":"Una griglia sul <em>golfo Laconico.</em>","story_p1":"Gythio era il porto di Sparta. Da qui partivano le navi cariche di porpora, olio d'oliva e guerrieri; tornavano stanchi e affamati. Mille anni dopo poco è cambiato — le barche sono più piccole, il porto più bello, la fame è la stessa. Giorgos cucina per quella fame.","story_p2":"La nostra pita è travixti — tirata a mano, fritta nell'olio d'oliva finché non scricchiola. La carne viene tagliata in cucina, infilata su spiedini di legno, e grigliata sulla vera brace. Il nostro formaggio è kasseri stagionato, deciso e saporito. Mettili insieme e hai la tripleta: il boccone per cui la Mani è famosa.","story_p3":"Siamo pochi tavoli in via Tzanni Tzannetaki, la strada che costeggia il porto. Siediti, ordina lo spiedino che vuoi, guarda salire il fumo. Tutto qui. Questa è tutta l'idea.","fact_1_lbl":"ingredienti in una tripleta","fact_2_lbl":"tipi di spiedino, una griglia","fact_3_lbl":"dall'antica Sparta","fact_4_lbl":"carbone, niente gas, niente scorciatoie","sig_eyebrow":"Σήμα Κατατεθέν · La Firma","sig_title_html":"La <em>Tripleta.</em>","sig_sub":"tre cose, un boccone perfetto","sig_intro":"Fuori dalla Mani non la trovi così. Una pita travixti, una fetta spessa di kasseri stagionato, e uno spiedino appena uscito dalla griglia — piegati insieme mentre è tutto ancora caldo. È il panino che Gythio ha dato alla Grecia.","trio_1_title":"La Pita","trio_1_gr":"Μανιάτικη Πίτα Τραβηχτή","trio_1_desc":"Impasto steso sottile a mano, tuffato nell'olio bollente, fritto finché i bordi non si gonfiano. Croccante fuori, morbida dentro. Niente a che vedere con la pita piatta della città.","trio_2_title":"Il Formaggio","trio_2_gr":"Τυρί Κασέρι","trio_2_desc":"Una fetta spessa di kasseri stagionato, deciso e un po' pungente. Si scioglie quel tanto che basta sulla pita calda a tenere insieme tutto.","trio_3_title":"Lo Spiedino","trio_3_gr":"Καλαμάκι","trio_3_desc":"A tua scelta: maiale, pollo, kebab, vitello, pancetta, pecora o salsiccia di vitello. Sulla brace, mai sul gas, condito solo con sale, pepe e origano.","menu_eyebrow":"Κατάλογος · Il Menù","menu_title_html":"Il <em>Menù.</em>","menu_intro":"Prezzi in euro. Tutto grigliato al momento — dacci qualche minuto, ti daremo qualcosa che vale l'attesa.","feat_title_html":"La <em>Tripleta</em>","feat_sub":"Τριπλέτα · pita + formaggio + souvlaki","feat_desc":"La nostra firma. Pita travixti della Mani avvolta attorno al kasseri stagionato e allo spiedino che scegli. Il sapore di Gythio in un boccone.","feat_label":"uno per strada","sec_wrapped":"In Pita","sec_wrapped_note":"pita attorno allo spiedino, con tutto il resto","sec_skewers":"Spiedini","sec_skewers_note":"solo lo spiedino — come un kalamaki dev'essere","sec_plates":"Piatti","sec_plates_note":"spiedini con patatine, pita e contorni","sec_sides":"Insalate & Antipasti","sec_sides_note":"freschi, semplici, da condividere","sec_drinks":"Bevande","sec_drinks_note":"birra fredda, acqua fredda, e vino sfuso dalla botte","item_pork":"Souvlaki di Maiale","item_chicken":"Souvlaki di Pollo","item_kebab":"Kebab","item_pancetta":"Pancetta","item_veal":"Vitello da Latte","item_veal_sausage_dbl":"Doppia Salsiccia di Vitello","item_sheep":"Souvlaki di Pecora","item_pork_s":"Maiale","item_chicken_s":"Pollo","item_veal_sausage":"Salsiccia di Vitello","item_veal_s":"Vitello da Latte","item_sheep_s":"Pecora","item_veal_burger":"Bifteki (vitello)","item_mix":"Grigliata Mista","item_mix_sub":"un po' di tutto","item_greek_salad":"Insalata Greca","item_plain_salad":"Insalata Semplice","item_feta":"Feta","item_spicy_cheese":"Crema di Formaggio Piccante","item_tzatziki":"Tzatziki","item_fries":"Patatine Fatte in Casa","item_mani_pita":"Pita della Mani","item_extra_cheese":"Formaggio Extra","item_soft_drinks":"Bibite","item_beer":"Birra 500ml","item_water_500":"Acqua Minerale 500ml","item_water_1l":"Acqua Minerale 1L","item_barrel_wine":"Vino Sfuso 500ml","item_barrel_wine_sub":"rosso o bianco della casa","visit_eyebrow":"Vieni a Trovarci","visit_title_html":"Vieni per la <em>tripleta.</em>","visit_intro":"Siamo in via Tzanni Tzannetaki, la strada che costeggia il porto — intitolata al primo ministro nato a Gythio. Cerca il fumo del carbone. Siamo noi.","visit_btn":"Apri in Google Maps","visit_where_lbl":"Indirizzo","visit_where_sub":"Laconia · Mani · Peloponneso","visit_phone_lbl":"Telefono","visit_phone_val":"chiamaci","visit_phone_sub":"chiama prima per gruppi numerosi","visit_hours_lbl":"Orari","visit_hours_note":"gli orari possono variare d'inverno — è la Grecia","day_mon_thu":"Lun – Gio","day_fri_sat":"Ven – Sab","day_sun":"Domenica","visit_find_lbl":"Trovaci","foot_tagline":"«Mangia bene, bevi piano, vattene sazio.»","foot_menu":"Menù","foot_visit":"Visita","foot_privacy":"Privacy","foot_copyright":"Fatto con carbone e un po' di origano","item_pork_desc":"Alla brace, marinato con limone e origano","item_chicken_desc":"Alla brace, semplice e tenero","item_kebab_desc":"Manzo macinato a mano, speziato, alla griglia","item_pancetta_desc":"Pancetta, croccante sulla fiamma","item_veal_desc":"Vitello da latte, tenero, alla brace","item_veal_sausage_dbl_desc":"Due salsicce di vitello fresche, alla griglia","item_sheep_desc":"Pecora — sapore profondo, tradizionale","item_pork_s_desc":"Alla brace, marinato con limone e origano","item_chicken_s_desc":"Alla brace, semplice e tenero","item_veal_sausage_desc":"Fresca, sulla fiamma","item_veal_s_desc":"Vitello da latte, tenero, alla brace","item_sheep_s_desc":"Pecora — profonda, tradizionale","item_veal_burger_desc":"Hamburger di vitello alla griglia","item_greek_salad_desc":"Pomodoro, cetriolo, cipolla, olive, feta, origano","item_plain_salad_desc":"Lattuga, cetriolo, pomodoro, carota, olio d'oliva","item_feta_desc":"Una fetta di feta con olio d'oliva e origano","item_spicy_cheese_desc":"Feta montata con peperoni arrostiti","item_tzatziki_desc":"Yogurt, cetriolo, aglio, aneto","item_fries_desc":"Tagliate a mano, fritte al momento","item_mani_pita_desc":"Tirata a mano, dalla Mani","item_extra_cheese_desc":"Una fetta di formaggio greco alla griglia"},"pt":{"meta_title":"Το Σουβλάκι του Γιώργου — Souvlaki & Travixti · Gythio, Mani","meta_desc":"O Souvlaki do Giorgos em Gythio — souvlaki maniota tradicional e pita travixti esticada à mão, na rua Tzanni Tzannetaki, junto ao Golfo Lacónico.","nav_story":"A Nossa História","nav_signature":"A Tripleta","nav_menu":"Ementa","nav_visit":"Visite-nos","nav_cta":"Encontre-nos","hero_eyebrow":"Το Σουβλάκι του Γιώργου · Gythio · Mani","hero_title_html":"O grelhador do Giorgos, <span class=\"accent\">a tripleta</span><br/>de Gythio <span class=\"swash\">&amp;</span><br/>um porto que<br/><span class=\"accent\">um dia alimentou Esparta.</span>","hero_lede":"Espetadas na brasa, pita maniota esticada à mão, e o trio simples que os nossos avós comiam depois de um dia no Golfo Lacónico. Sem atalhos — apenas o grelhador, a farinha, a chama.","hero_btn_menu":"Ver a Ementa","hero_btn_tripleta":"O que é uma Tripleta?","strip_1":"Grelhador a carvão","strip_2":"Pita esticada à mão","strip_3":"Azeite lacónico","strip_4":"Receitas de família","story_eyebrow":"A Nossa História","story_title_html":"Um grelhador junto ao <em>Golfo Lacónico.</em>","story_p1":"Gythio era o porto de Esparta. Daqui partiam navios com púrpura, azeite e guerreiros; voltavam cansados e esfomeados. Mil anos depois, pouco mudou — os barcos são mais pequenos, o porto é mais bonito, a fome é a mesma. O Giorgos cozinha para essa fome.","story_p2":"A nossa pita é travixti — esticada à mão, frita em azeite até estalar. A carne é cortada na cozinha, espetada em espetos de madeira e grelhada em brasa a sério. O nosso queijo é kasseri curado, intenso e saboroso. Junte tudo e tem a tripleta: a dentada pela qual a Mani é conhecida.","story_p3":"Somos umas mesas na Tzanni Tzannetaki, a rua que percorre o porto. Sente-se, peça a espetada que quiser, veja o fumo subir. É só isto. É toda a ideia.","fact_1_lbl":"ingredientes numa tripleta","fact_2_lbl":"tipos de espetada, um grelhador","fact_3_lbl":"até à Esparta antiga","fact_4_lbl":"carvão, sem gás, sem atalhos","sig_eyebrow":"Σήμα Κατατεθέν · A Assinatura","sig_title_html":"A <em>Tripleta.</em>","sig_sub":"três coisas, uma dentada perfeita","sig_intro":"Não a encontra assim fora da Mani. Uma pita travixti, uma fatia de kasseri curado, e uma espetada acabada de sair do grelhador — dobradas enquanto tudo está ainda quente. É a sandes que Gythio ofereceu à Grécia.","trio_1_title":"A Pita","trio_1_gr":"Μανιάτικη Πίτα Τραβηχτή","trio_1_desc":"Massa esticada fina à mão, mergulhada em azeite quente, frita até as bordas estalarem. Crocante por fora, fofa por dentro. Nada a ver com a pita achatada que conhece da cidade.","trio_2_title":"O Queijo","trio_2_gr":"Τυρί Κασέρι","trio_2_desc":"Uma fatia grossa de kasseri curado, intensa e um pouco picante. Derrete apenas o suficiente sobre a pita quente para unir tudo.","trio_3_title":"A Espetada","trio_3_gr":"Καλαμάκι","trio_3_desc":"À sua escolha: porco, frango, kebab, vitela, entremeada, ovelha ou salsicha de vitela. Em brasa, nunca a gás, temperada apenas com sal, pimenta e orégãos.","menu_eyebrow":"Κατάλογος · Ementa","menu_title_html":"A <em>Ementa.</em>","menu_intro":"Preços em euros. Tudo grelhado na hora — dê-nos uns minutos, dar-lhe-emos algo que vale a espera.","feat_title_html":"A <em>Tripleta</em>","feat_sub":"Τριπλέτα · pita + queijo + souvlaki","feat_desc":"A nossa assinatura. Pita travixti maniota enrolada em torno de kasseri curado e da espetada à sua escolha. O sabor de Gythio numa dentada.","feat_label":"uma para o caminho","sec_wrapped":"Em Pita","sec_wrapped_note":"pita à volta da espetada, com tudo o resto","sec_skewers":"Espetadas","sec_skewers_note":"só a espetada — como um kalamaki deve ser","sec_plates":"Pratos","sec_plates_note":"espetadas com batatas fritas, pita e acompanhamentos","sec_sides":"Saladas & Entradas","sec_sides_note":"frescos, simples, para partilhar","sec_drinks":"Bebidas","sec_drinks_note":"cerveja fresca, água fresca, e vinho da pipa","item_pork":"Souvlaki de Porco","item_chicken":"Souvlaki de Frango","item_kebab":"Kebab","item_pancetta":"Entremeada","item_veal":"Vitela","item_veal_sausage_dbl":"Dupla Salsicha de Vitela","item_sheep":"Souvlaki de Ovelha","item_pork_s":"Porco","item_chicken_s":"Frango","item_veal_sausage":"Salsicha de Vitela","item_veal_s":"Vitela","item_sheep_s":"Ovelha","item_veal_burger":"Bifteki (vitela)","item_mix":"Grelhada Mista","item_mix_sub":"um pouco de tudo","item_greek_salad":"Salada Grega","item_plain_salad":"Salada Simples","item_feta":"Feta","item_spicy_cheese":"Queijo Picante","item_tzatziki":"Tzatziki","item_fries":"Batatas Fritas Caseiras","item_mani_pita":"Pita Maniota","item_extra_cheese":"Queijo Extra","item_soft_drinks":"Refrigerantes","item_beer":"Cerveja 500ml","item_water_500":"Água Mineral 500ml","item_water_1l":"Água Mineral 1L","item_barrel_wine":"Vinho da Pipa 500ml","item_barrel_wine_sub":"tinto ou branco da casa","visit_eyebrow":"Visite-nos","visit_title_html":"Venha pela <em>tripleta.</em>","visit_intro":"Estamos na Tzanni Tzannetaki, a rua que percorre o porto — tem o nome do primeiro-ministro nascido em Gythio. Procure o fumo do carvão. Somos nós.","visit_btn":"Abrir no Google Maps","visit_where_lbl":"Morada","visit_where_sub":"Lacónia · Mani · Peloponeso","visit_phone_lbl":"Telefone","visit_phone_val":"telefone-nos","visit_phone_sub":"ligue antes para grupos grandes","visit_hours_lbl":"Horário","visit_hours_note":"o horário pode variar no inverno — é a Grécia","day_mon_thu":"Seg – Qui","day_fri_sat":"Sex – Sáb","day_sun":"Domingo","visit_find_lbl":"Encontre-nos","foot_tagline":"«Coma bem, beba tranquilo, saia cheio.»","foot_menu":"Ementa","foot_visit":"Visita","foot_privacy":"Privacidade","foot_copyright":"Feito com carvão e um pouco de orégãos","item_pork_desc":"Na brasa, marinado em limão e orégãos","item_chicken_desc":"Na brasa, simples e tenro","item_kebab_desc":"Carne picada à mão, temperada, na grelha","item_pancetta_desc":"Entremeada, crocante sobre a chama","item_veal_desc":"Vitela tenra, na brasa","item_veal_sausage_dbl_desc":"Duas salsichas frescas de vitela, grelhadas","item_sheep_desc":"Ovelha — sabor profundo, tradicional","item_pork_s_desc":"Na brasa, marinado em limão e orégãos","item_chicken_s_desc":"Na brasa, simples e tenro","item_veal_sausage_desc":"Fresca, sobre a chama","item_veal_s_desc":"Vitela tenra, na brasa","item_sheep_s_desc":"Ovelha — profunda, tradicional","item_veal_burger_desc":"Hambúrguer de vitela grelhado","item_greek_salad_desc":"Tomate, pepino, cebola, azeitonas, feta, orégãos","item_plain_salad_desc":"Alface, pepino, tomate, cenoura, azeite","item_feta_desc":"Uma fatia de feta com azeite e orégãos","item_spicy_cheese_desc":"Feta batido com pimentos assados","item_tzatziki_desc":"Iogurte, pepino, alho, endro","item_fries_desc":"Cortadas à mão, fritas na hora","item_mani_pita_desc":"Esticada à mão, da Mani","item_extra_cheese_desc":"Uma fatia de queijo grego grelhado"}};
+  const LANG_META = {"en":{"flag":"🇬🇧","short":"EN","html_lang":"en"},"el":{"flag":"🇬🇷","short":"EL","html_lang":"el"},"de":{"flag":"🇩🇪","short":"DE","html_lang":"de"},"fr":{"flag":"🇫🇷","short":"FR","html_lang":"fr"},"es":{"flag":"🇪🇸","short":"ES","html_lang":"es"},"it":{"flag":"🇮🇹","short":"IT","html_lang":"it"},"pt":{"flag":"🇵🇹","short":"PT","html_lang":"pt"}};
+  const SUPPORTED = Object.keys(TRANSLATIONS);
+
+  function detectInitialLang() {
+    // URL query string ?lang=xx takes highest priority
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('lang');
+    if (q && SUPPORTED.includes(q)) return q;
+
+    // Browser language
+    const nav = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+    const base = nav.split('-')[0];
+    if (SUPPORTED.includes(base)) return base;
+    return 'en';
+  }
+
+  function renderI18n(lang) {
+    const dict = TRANSLATIONS[lang] || TRANSLATIONS.en;
+
+    // Plain text nodes
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (dict[key] !== undefined) {
+        el.textContent = dict[key];
+      }
+    });
+
+    // HTML nodes (titles with <em>, <span>, <br>)
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.getAttribute('data-i18n-html');
+      if (dict[key] !== undefined) {
+        el.innerHTML = dict[key];
+      }
+    });
+
+    // Attributes (meta description etc.) — format "attr:key"
+    document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+      const spec = el.getAttribute('data-i18n-attr');
+      const [attr, key] = spec.split(':');
+      if (dict[key] !== undefined) {
+        el.setAttribute(attr, dict[key]);
+      }
+    });
+
+    // <html lang>
+    const meta = LANG_META[lang] || LANG_META.en;
+    document.documentElement.setAttribute('lang', meta.html_lang);
+
+    // Switcher UI state
+    const flagEl = document.getElementById('langFlag');
+    const labelEl = document.getElementById('langLabel');
+    if (flagEl) flagEl.textContent = meta.flag;
+    if (labelEl) labelEl.textContent = meta.short;
+
+    document.querySelectorAll('.lang-menu li').forEach(li => {
+      li.classList.toggle('active', li.getAttribute('data-lang') === lang);
+    });
+  }
+
+  function setLang(lang) {
+    if (!SUPPORTED.includes(lang)) lang = 'en';
+    window.currentLang = lang;
+
+    // Update URL: set ?lang=xx while preserving any #anchor
+    const params = new URLSearchParams(window.location.search);
+    params.set('lang', lang);
+    const newUrl = window.location.pathname + '?' + params.toString() + window.location.hash;
+    history.replaceState(null, '', newUrl);
+
+    renderI18n(lang);
+  }
+
+  // Wire up switcher
+  function initI18n() {
+    const btn = document.getElementById('langBtn');
+    const menu = document.getElementById('langMenu');
+
+    if (btn && menu) {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = menu.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+
+      menu.querySelectorAll('li').forEach(li => {
+        li.addEventListener('click', () => {
+          const lang = li.getAttribute('data-lang');
+          setLang(lang);
+          menu.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!menu.contains(e.target) && e.target !== btn) {
+          menu.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    // Initial render
+    const initial = detectInitialLang();
+    setLang(initial);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initI18n);
+  } else {
+    initI18n();
+  }
+
+
+  // simple reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
