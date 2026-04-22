@@ -7,7 +7,7 @@ const A5 = [419.53, 595.28];
 
 // The PDF uses standard 14 fonts which are Latin-only — Greek characters won't
 // render. "Souvlaki tou Giorgou" is the Latin transliteration of the brand.
-const RESTAURANT = "Souvlaki tou Giorgou";
+const RESTAURANT = "To Souvlaki Tou Giorgou";
 const LOCATION = "GYTHIO · MANI";
 const URL_TEXT = process.env.MENU_URL || "souvlakitougiorgou.vercel.app";
 const SCAN_EN = "SCAN FOR MENU";
